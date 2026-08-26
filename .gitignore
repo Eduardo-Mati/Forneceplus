@@ -1,0 +1,33 @@
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDEs and editors
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# Java and Maven
+**/target/
+**/bin/
+**/.mvn/wrapper/maven-wrapper.jar
+*.class
+
+# Node.js and Angular
+**/node_modules/
+**/dist/
+**/.angular/cache/
+**/coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local environment and configuration
+**/.env
+**/.env.*
+!**/.env.example
+**/application-local.properties

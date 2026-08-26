@@ -1,0 +1,30 @@
+# Maven and Java build output
+target/
+bin/
+.mvn/wrapper/maven-wrapper.jar
+*.class
+
+# IDEs and editors
+.idea/
+*.iws
+*.iml
+*.ipr
+.classpath
+.factorypath
+.project
+.settings/
+.apt_generated/
+.springBeans
+.sts4-cache/
+.vscode/
+
+# Other build tools
+build/
+dist/
+nbbuild/
+nbdist/
+nbproject/private/
+.nb-gradle/
+
+# Local configuration
+src/main/resources/application-local.properties
