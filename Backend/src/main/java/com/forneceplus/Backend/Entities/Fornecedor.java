@@ -2,6 +2,7 @@ package com.forneceplus.Backend.Entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,19 +14,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Fornecedor {
 
-    @Id
+    @Id @GeneratedValue
     private Long idFornecedor;
-    @Column(name = "nome_fornecedor", nullable = false)
+    @Column(nullable = false)
     private String nomeFornecedor;
-    @Column(name = "email_fornecedor", nullable = false)
+    @Column(nullable = false)
     private String emailFornecedor;
-    @Column(name = "descriçãoFornecedor", nullable = false)
+    @Column(nullable = false)
     private String descricaoFornecedor;
-    @Column(name= "telefoneFornecedor", length = 50, nullable = false)
-    private int telefoneFornecedor;
-    @Column(name = "enderecoFornecedor", nullable = false)
+    @Column(length = 50, nullable = false)
+    private Integer telefoneFornecedor;
+    @Column(nullable = false)
     private String enderecoFornecedor;
-    @Column(name = "CNPJFornecedor", length = 14, nullable = false)
+    @Column(length = 14, nullable = false)
     private String CNPJFornecedor;
 
 

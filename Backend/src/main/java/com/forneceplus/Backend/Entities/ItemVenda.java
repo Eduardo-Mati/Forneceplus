@@ -2,6 +2,7 @@ package com.forneceplus.Backend.Entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,17 +14,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ItemVenda {
 
-    @Id
+    @Id @GeneratedValue
     private Long idItem;
-    @Column(name = "ProdutoVenda", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String produto;
-    @Column(name = "quantidadeVenda", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String quantidade;
-    @Column(name = "precoVenda", nullable = false)
+    @Column(nullable = false)
     private String preco;
-    @Column(name = "dataVenda", nullable = false)
+    @Column(nullable = false)
     private String dataVenda;
-    @Column(name = "statusVenda", nullable = false)
+    @Column(nullable = false)
     private String statusVenda;
 
 }
