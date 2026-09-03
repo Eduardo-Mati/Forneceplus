@@ -24,25 +24,25 @@ public class VendaController {
     }
 
     @PostMapping
-    private ResponseEntity<Venda> SalvarVenda(Venda venda) {
+    private ResponseEntity<Venda> SalvarVenda(@RequestBody Venda venda) {
         Venda vendaSalva = vendaService.SalvarVenda(venda);
         return ResponseEntity.status(HttpStatus.CREATED).body(vendaSalva);
     }
 
-    @PutMapping
-    private ResponseEntity<Venda> AtualizarVenda(Long id, Venda venda) {
+    @PutMapping("/{id}")
+    private ResponseEntity<Venda> AtualizarVenda(@PathVariable Long id, @RequestBody Venda venda) {
         Venda vendaAtualizada = vendaService.AtualizarVenda(id, venda);
         return ResponseEntity.status(HttpStatus.OK).body(vendaAtualizada);
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<Void> DeletarVenda(Long id) {
+    private ResponseEntity<Void> DeletarVenda(@PathVariable Long id) {
         vendaService.DeletarVenda(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<Venda> BuscarVendaPorId(Long id) {
+    private ResponseEntity<Venda> BuscarVendaPorId(@PathVariable Long id) {
         Optional<Venda> venda = vendaService.BuscarVendaPorId(id);
 
         if(venda.isPresent()) {

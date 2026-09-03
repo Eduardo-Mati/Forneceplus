@@ -1,5 +1,6 @@
 package com.forneceplus.Backend.Services;
 import com.forneceplus.Backend.Entities.ItemVenda;
+import com.forneceplus.Backend.Exceptions.ResourceNotFoundException;
 import com.forneceplus.Backend.Repositories.ItemVendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,8 @@ public class ItemVendaService {
     }
 
     public ItemVenda AtualizarItem(Long id, ItemVenda dadosNovos){
-        ItemVenda itemAntigo = itemVendaRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("Conta não encontrada"));
+        ItemVenda itemAntigo = itemVendaRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Item de venda não encontrado"));
 
         if (dadosNovos.getDataVenda() != null) {
             itemAntigo.setDataVenda(dadosNovos.getDataVenda());
@@ -39,9 +40,6 @@ public class ItemVendaService {
         }
         if (dadosNovos.getStatusVenda() != null) {
             itemAntigo.setStatusVenda(dadosNovos.getStatusVenda());
-        }
-        if (dadosNovos.getDataVenda() != null) {
-            itemAntigo.setDataVenda(dadosNovos.getDataVenda());
         }
 
 

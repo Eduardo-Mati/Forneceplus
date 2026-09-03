@@ -1,7 +1,7 @@
 package com.forneceplus.Backend.Services;
 
 import com.forneceplus.Backend.Entities.Fornecedor;
-import com.forneceplus.Backend.Entities.ItemVenda;
+import com.forneceplus.Backend.Exceptions.ResourceNotFoundException;
 import com.forneceplus.Backend.Repositories.FornecedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +28,8 @@ public class FornecedorService {
         fornecedorRepository.deleteById(id);
     }
     public Fornecedor AtualizarFornecedor(Long id, Fornecedor fornecedorNovo){
-        Fornecedor fornecedorAntigo = fornecedorRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("Conta não encontrada"));
+        Fornecedor fornecedorAntigo = fornecedorRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Fornecedor não encontrado"));
 
         if (fornecedorNovo.getDescricaoFornecedor() != null) {
             fornecedorAntigo.setDescricaoFornecedor(fornecedorNovo.getDescricaoFornecedor());
@@ -42,9 +42,6 @@ public class FornecedorService {
         }
         if (fornecedorNovo.getEnderecoFornecedor() != null){
             fornecedorAntigo.setEnderecoFornecedor(fornecedorNovo.getEnderecoFornecedor());
-        }
-        if (fornecedorNovo.getDescricaoFornecedor() != null) {
-            fornecedorAntigo.setDescricaoFornecedor(fornecedorNovo.getDescricaoFornecedor());
         }
         if (fornecedorNovo.getNomeFornecedor() != null) {
             fornecedorAntigo.setNomeFornecedor(fornecedorNovo.getNomeFornecedor());

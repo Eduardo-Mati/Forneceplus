@@ -1,5 +1,6 @@
 package com.forneceplus.Backend.Services;
 import com.forneceplus.Backend.Entities.Usuario;
+import com.forneceplus.Backend.Exceptions.ResourceNotFoundException;
 import com.forneceplus.Backend.Repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,8 @@ public class UsuarioService {
 
     public Usuario AtualizarUsuario(Long id, Usuario usuarioNovo){
 
-        Usuario usuarioAntigo = usuarioRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("Conta não encontrada"));
+        Usuario usuarioAntigo = usuarioRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
 
         if (usuarioNovo.getCPF() != null) {
             usuarioAntigo.setCPF(usuarioNovo.getCPF());
@@ -48,9 +49,6 @@ public class UsuarioService {
         }
         if (usuarioNovo.getSenha() != null) {
             usuarioAntigo.setSenha(usuarioNovo.getSenha());
-        }
-        if(usuarioNovo.getTelefone() != null){
-            usuarioAntigo.setTelefone(usuarioNovo.getTelefone());
         }
         if(usuarioNovo.getTelefone() != null){
             usuarioAntigo.setTelefone(usuarioNovo.getTelefone());

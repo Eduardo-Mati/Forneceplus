@@ -1,5 +1,6 @@
 package com.forneceplus.Backend.Services;
 import com.forneceplus.Backend.Entities.Venda;
+import com.forneceplus.Backend.Exceptions.ResourceNotFoundException;
 import com.forneceplus.Backend.Repositories.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,8 @@ public class VendaService {
         vendaRepository.deleteById(id);
     }
     public Venda AtualizarVenda(Long id, Venda vendaNova){
-        Venda vendaAntiga = vendaRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("Conta não encontrada"));
+        Venda vendaAntiga = vendaRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Venda não encontrada"));
 
         if (vendaNova.getData() != null) {
             vendaAntiga.setData(vendaNova.getData());

@@ -1,5 +1,6 @@
 package com.forneceplus.Backend.Services;
 import com.forneceplus.Backend.Entities.Produto;
+import com.forneceplus.Backend.Exceptions.ResourceNotFoundException;
 import com.forneceplus.Backend.Repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,8 @@ public class ProdutoService {
 
     public Produto AtualizarProduto(Long id, Produto produtoNovo){
 
-        Produto ProdutoAntigo = produtoRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("Conta não encontrada"));
+        Produto ProdutoAntigo = produtoRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
 
         if (produtoNovo.getCategoria() != null) {
             ProdutoAntigo.setCategoria(produtoNovo.getCategoria());
@@ -55,6 +56,9 @@ public class ProdutoService {
     }
 
     public void DeletarProduto(Long id){
+        if (!produtoRepository.existsById(id)) {
+            throw new RuntimeException("Produto não encontrado");
+        }
         try {
             produtoRepository.deleteById(id);
 

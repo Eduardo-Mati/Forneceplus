@@ -1,5 +1,6 @@
 package com.forneceplus.Backend.Services;
 import com.forneceplus.Backend.Entities.Categoria;
+import com.forneceplus.Backend.Exceptions.ResourceNotFoundException;
 import com.forneceplus.Backend.Repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,8 @@ public class CategoriaService {
     }
     public Categoria AtualizarCategoria(Long id, Categoria categoriaNova){
 
-        Categoria categoriaAntiga = categoriaRepository.findById(id).orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+        Categoria categoriaAntiga = categoriaRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
 
         if (categoriaNova.getDescricao() != null){
             categoriaAntiga.setDescricao(categoriaNova.getDescricao());

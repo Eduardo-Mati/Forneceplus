@@ -28,3 +28,7 @@ nbproject/private/
 
 # Local configuration
 src/main/resources/application-local.properties
+testedb.mv.db
+testedb.trace.db
+*.lock.db
+*.log

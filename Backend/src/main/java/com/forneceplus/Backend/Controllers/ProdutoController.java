@@ -29,12 +29,12 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<Optional<Produto>> BuscarProdutoPorId (@PathVariable Long id){
+    private ResponseEntity<Produto> BuscarProdutoPorId (@PathVariable Long id){
 
         Optional<Produto> produto = produtoService.BuscarProdutoPorId(id);
 
         if(produto.isPresent()){
-            return ResponseEntity.ok(produto);
+            return ResponseEntity.ok(produto.get());
         }else{
             return ResponseEntity.notFound().build();
         }
