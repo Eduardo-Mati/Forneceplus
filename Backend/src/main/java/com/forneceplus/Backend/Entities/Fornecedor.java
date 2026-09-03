@@ -23,7 +23,7 @@ public class Fornecedor {
     @Column(nullable = false)
     private String descricaoFornecedor;
     @Column(length = 50, nullable = false)
-    private Integer telefoneFornecedor;
+    private Long telefoneFornecedor;
     @Column(nullable = false)
     private String enderecoFornecedor;
     @Column(length = 14, nullable = false)

@@ -2,6 +2,7 @@ package com.forneceplus.Backend.Controllers;
 
 import com.forneceplus.Backend.Entities.Usuario;
 import com.forneceplus.Backend.Services.UsuarioService;
+import com.forneceplus.Backend.Utils.VerificarCPF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +25,17 @@ public class UsuarioController {
 
     @PostMapping
     private ResponseEntity<Usuario> SalvarUsuario(@RequestBody Usuario usuario){
+        VerificarCPF verificarCPF = new VerificarCPF();
 
-        Usuario usuarioSalvo = usuarioService.SalvarUsuario(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);
+        if(!verificarCPF.verificarCPF(usuario.getCPF())){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(usuario);
+        }
+        if (verificarCPF.verificarCPF(usuario.getCPF())){
+            Usuario usuarioSalvo = usuarioService.SalvarUsuario(usuario);
+            return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);
+        }
+
+        return null;
     }
 
     @GetMapping("/{id}")

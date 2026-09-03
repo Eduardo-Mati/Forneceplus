@@ -38,9 +38,7 @@ public class CategoriaService {
         if (categoriaNova.getStatus() != null) {
             categoriaAntiga.setStatus(categoriaNova.getStatus());
         }
-        if (categoriaNova.getIdCategoria() != null) {
-            categoriaAntiga.setIdCategoria(categoriaNova.getIdCategoria());
-        }
+
         return categoriaRepository.save(categoriaAntiga);
     }
 }

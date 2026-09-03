@@ -27,5 +27,5 @@ public class Usuario {
     @Column(nullable = false)
     private String endereco;
     @Column(nullable = false)
-    private String telefone;
+    private Long telefone;
 }

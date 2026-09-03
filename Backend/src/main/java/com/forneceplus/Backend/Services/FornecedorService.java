@@ -49,9 +49,6 @@ public class FornecedorService {
         if (fornecedorNovo.getNomeFornecedor() != null) {
             fornecedorAntigo.setNomeFornecedor(fornecedorNovo.getNomeFornecedor());
         }
-        if(fornecedorNovo.getIdFornecedor() != null){
-            fornecedorAntigo.setIdFornecedor(fornecedorNovo.getIdFornecedor());
-        }
         if(fornecedorNovo.getTelefoneFornecedor() != null){
             fornecedorAntigo.setTelefoneFornecedor(fornecedorNovo.getTelefoneFornecedor());
         }

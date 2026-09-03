@@ -52,9 +52,6 @@ public class VendaService {
         if (vendaNova.getFormaPagamento() != null) {
             vendaAntiga.setFormaPagamento(vendaNova.getFormaPagamento());
         }
-        if (vendaNova.getIdVenda() != null) {
-            vendaAntiga.setIdVenda(vendaNova.getIdVenda());
-        }
         if (vendaNova.getValor() != null) {
             vendaAntiga.setValor(vendaNova.getValor());
         }

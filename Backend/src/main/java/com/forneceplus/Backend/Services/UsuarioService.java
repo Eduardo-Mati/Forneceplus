@@ -52,9 +52,6 @@ public class UsuarioService {
         if(usuarioNovo.getTelefone() != null){
             usuarioAntigo.setTelefone(usuarioNovo.getTelefone());
         }
-        if (usuarioNovo.getIdUsuario() != null) {
-            usuarioAntigo.setIdUsuario(usuarioNovo.getIdUsuario());
-        }
         if(usuarioNovo.getTelefone() != null){
             usuarioAntigo.setTelefone(usuarioNovo.getTelefone());
         }

@@ -43,9 +43,7 @@ public class ItemVendaService {
         if (dadosNovos.getDataVenda() != null) {
             itemAntigo.setDataVenda(dadosNovos.getDataVenda());
         }
-        if (dadosNovos.getIdItem() != null) {
-            itemAntigo.setIdItem(dadosNovos.getIdItem());
-        }
+
 
 
         return itemVendaRepository.save(itemAntigo);

@@ -49,9 +49,7 @@ public class ProdutoService {
         if(produtoNovo.getFornecedor() != null){
             ProdutoAntigo.setFornecedor(produtoNovo.getFornecedor());
         }
-        if(produtoNovo.getIdProduto() != null){
-            ProdutoAntigo.setIdProduto(produtoNovo.getIdProduto());
-        }
+
 
         return produtoRepository.save(ProdutoAntigo);
     }
