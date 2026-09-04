@@ -23,8 +23,6 @@ public class ItemVenda {
     @Column(nullable = false)
     private String preco;
     @Column(nullable = false)
-    private String dataVenda;
-    @Column(nullable = false)
-    private String statusVenda;
+    private String statusItem;
 
 }

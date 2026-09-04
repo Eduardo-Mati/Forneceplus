@@ -51,8 +51,14 @@ public class CategoriaController {
 
     @PutMapping("/{id}")
     private ResponseEntity<Categoria> AtualizarCategoria(@PathVariable Long id, @RequestBody Categoria categoria){
-        Categoria categoriaAtualizada = categoriaService.AtualizarCategoria(id, categoria);
-        return ResponseEntity.status(HttpStatus.OK).body(categoriaAtualizada);
+        Optional<Categoria> categoriaAntiga = categoriaService.BuscarCategoriaPorId(id);
+
+        if(!categoriaAntiga.isPresent()){
+            return ResponseEntity.notFound().build();
+        }else {
+            Categoria categoriaAtualizada = categoriaService.AtualizarCategoria(id, categoria);
+            return ResponseEntity.status(HttpStatus.OK).body(categoriaAtualizada);
+        }
     }
 
 }

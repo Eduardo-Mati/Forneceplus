@@ -42,8 +42,14 @@ public class ProdutoController {
 
     @PutMapping("/{id}")
     private ResponseEntity<Produto> AtualizarProduto(@PathVariable Long id, @RequestBody Produto produto){
-        Produto produtoAtualizado = produtoService.AtualizarProduto(id, produto);
-        return ResponseEntity.status(HttpStatus.OK).body(produtoAtualizado);
+        Optional<Produto> produtoAntigo = produtoService.BuscarProdutoPorId(id);
+
+        if(!produtoAntigo.isPresent()){
+            return ResponseEntity.notFound().build();
+        }else {
+            Produto produtoAtualizado = produtoService.AtualizarProduto(id, produto);
+            return ResponseEntity.status(HttpStatus.OK).body(produtoAtualizado);
+        }
     }
 
     @DeleteMapping("/{id}")

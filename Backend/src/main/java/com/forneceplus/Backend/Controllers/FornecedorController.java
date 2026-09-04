@@ -50,8 +50,14 @@ public class FornecedorController {
 
     @PutMapping("/{id}")
     private ResponseEntity<Fornecedor> AtualizarFornecedor(@PathVariable Long id,@RequestBody Fornecedor fornecedor){
-        Fornecedor fornecedorAtualizado = fornecedorService.AtualizarFornecedor(id, fornecedor);
-        return ResponseEntity.status(HttpStatus.OK).body(fornecedorAtualizado);
+        Optional<Fornecedor> fornecedorAntigo = fornecedorService.BuscarFornecedorPorId(id);
+
+        if(!fornecedorAntigo.isPresent()){
+            return ResponseEntity.notFound().build();
+        }else {
+            Fornecedor fornecedorAtualizado = fornecedorService.AtualizarFornecedor(id, fornecedor);
+            return ResponseEntity.status(HttpStatus.OK).body(fornecedorAtualizado);
+        }
     }
 
 }

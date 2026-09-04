@@ -26,9 +26,7 @@ public class ItemVendaService {
         ItemVenda itemAntigo = itemVendaRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Item de venda não encontrado"));
 
-        if (dadosNovos.getDataVenda() != null) {
-            itemAntigo.setDataVenda(dadosNovos.getDataVenda());
-        }
+
         if (dadosNovos.getPreco() != null){
             itemAntigo.setPreco(dadosNovos.getPreco());
         }
@@ -38,8 +36,8 @@ public class ItemVendaService {
         if (dadosNovos.getProduto() != null){
             itemAntigo.setProduto(dadosNovos.getProduto());
         }
-        if (dadosNovos.getStatusVenda() != null) {
-            itemAntigo.setStatusVenda(dadosNovos.getStatusVenda());
+        if (dadosNovos.getStatusItem() != null) {
+            itemAntigo.setStatusItem(dadosNovos.getStatusItem());
         }
 
 

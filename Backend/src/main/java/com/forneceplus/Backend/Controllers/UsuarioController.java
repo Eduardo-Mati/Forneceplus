@@ -57,8 +57,14 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     private ResponseEntity<Usuario> AtualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario){
-        Usuario usuarioAtualizado = usuarioService.AtualizarUsuario(id, usuario);
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioAtualizado);
+        Optional<Usuario> usuarioAntigo = usuarioService.BuscarUsuarioPorId(id);
+
+        if(!usuarioAntigo.isPresent()){
+            return ResponseEntity.notFound().build();
+        }else {
+            Usuario usuarioAtualizado = usuarioService.AtualizarUsuario(id, usuario);
+            return ResponseEntity.status(HttpStatus.OK).body(usuarioAtualizado);
+        }
     }
 
 }

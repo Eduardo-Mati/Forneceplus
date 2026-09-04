@@ -29,12 +29,6 @@ public class VendaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(vendaSalva);
     }
 
-    @PutMapping("/{id}")
-    private ResponseEntity<Venda> AtualizarVenda(@PathVariable Long id, @RequestBody Venda venda) {
-        Venda vendaAtualizada = vendaService.AtualizarVenda(id, venda);
-        return ResponseEntity.status(HttpStatus.OK).body(vendaAtualizada);
-    }
-
     @DeleteMapping("/{id}")
     private ResponseEntity<Void> DeletarVenda(@PathVariable Long id) {
         vendaService.DeletarVenda(id);

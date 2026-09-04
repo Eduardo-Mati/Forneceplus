@@ -42,8 +42,14 @@ public class ItemVendaController {
 
     @PutMapping("/{id}")
     private ResponseEntity<ItemVenda> AtualizarItem(@PathVariable Long id,@RequestBody ItemVenda dadosParciais){
-        ItemVenda itemAtualizado = itemVendaService.AtualizarItem(id, dadosParciais);
-        return ResponseEntity.status(HttpStatus.OK).body(itemAtualizado);
+        Optional<ItemVenda> itemAntigo = itemVendaService.BuscarItemPorId(id);
+
+        if(!itemAntigo.isPresent()){
+            return ResponseEntity.notFound().build();
+        }else {
+            ItemVenda itemAtualizado = itemVendaService.AtualizarItem(id, dadosParciais);
+            return ResponseEntity.status(HttpStatus.OK).body(itemAtualizado);
+        }
     }
 
     @DeleteMapping("/{id}")
