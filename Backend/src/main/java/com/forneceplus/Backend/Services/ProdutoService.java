@@ -1,6 +1,10 @@
 package com.forneceplus.Backend.Services;
+import com.forneceplus.Backend.Entities.Categoria;
+import com.forneceplus.Backend.Entities.Fornecedor;
 import com.forneceplus.Backend.Entities.Produto;
 import com.forneceplus.Backend.Exceptions.ResourceNotFoundException;
+import com.forneceplus.Backend.Repositories.CategoriaRepository;
+import com.forneceplus.Backend.Repositories.FornecedorRepository;
 import com.forneceplus.Backend.Repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +18,24 @@ public class ProdutoService {
 
     @Autowired
     private ProdutoRepository produtoRepository;
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+    @Autowired
+    private FornecedorRepository fornecedorRepository;
 
     public List<Produto> ListarProdutos(){
         return produtoRepository.findAll();
     }
 
     public Produto SalvarProduto(Produto produto){
+        Categoria categoria = categoriaRepository.findById(produto.getCategoria().getIdCategoria())
+                .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
+        produto.setCategoria(categoria);
+
+        Fornecedor fornecedor = fornecedorRepository.findById(produto.getFornecedor().getIdFornecedor())
+                .orElseThrow(() -> new ResourceNotFoundException("Fornecedor não encontrado"));
+        produto.setFornecedor(fornecedor);
+
         return produtoRepository.save(produto);
     }
 
@@ -33,7 +49,9 @@ public class ProdutoService {
             .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
 
         if (produtoNovo.getCategoria() != null) {
-            ProdutoAntigo.setCategoria(produtoNovo.getCategoria());
+            Categoria categoria = categoriaRepository.findById(produtoNovo.getCategoria().getIdCategoria())
+                    .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
+            ProdutoAntigo.setCategoria(categoria);
         }
         if (produtoNovo.getPreco() != null){
             ProdutoAntigo.setPreco(produtoNovo.getPreco());
@@ -48,7 +66,9 @@ public class ProdutoService {
             ProdutoAntigo.setNomeProduto(produtoNovo.getNomeProduto());
         }
         if(produtoNovo.getFornecedor() != null){
-            ProdutoAntigo.setFornecedor(produtoNovo.getFornecedor());
+            Fornecedor fornecedor = fornecedorRepository.findById(produtoNovo.getFornecedor().getIdFornecedor())
+                    .orElseThrow(() -> new ResourceNotFoundException("Fornecedor não encontrado"));
+            ProdutoAntigo.setFornecedor(fornecedor);
         }
 
 
@@ -57,13 +77,8 @@ public class ProdutoService {
 
     public void DeletarProduto(Long id){
         if (!produtoRepository.existsById(id)) {
-            throw new RuntimeException("Produto não encontrado");
+            throw new ResourceNotFoundException("Produto não encontrado");
         }
-        try {
-            produtoRepository.deleteById(id);
-
-        } catch (Exception e) {
-            System.out.println("não tem nenhum produto com esse id");
-        }
+        produtoRepository.deleteById(id);
     }
 }

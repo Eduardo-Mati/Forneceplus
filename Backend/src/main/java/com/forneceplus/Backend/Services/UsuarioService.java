@@ -27,6 +27,9 @@ public class UsuarioService {
     }
 
     public void DeletarUsuario(Long Id){
+        if (!usuarioRepository.existsById(Id)) {
+            throw new ResourceNotFoundException("Usuário não encontrado");
+        }
         usuarioRepository.deleteById(Id);
     }
 

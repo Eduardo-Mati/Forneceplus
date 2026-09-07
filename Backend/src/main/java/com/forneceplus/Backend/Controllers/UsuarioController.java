@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,18 +25,14 @@ public class UsuarioController {
     }
 
     @PostMapping
-    private ResponseEntity<Usuario> SalvarUsuario(@RequestBody Usuario usuario){
+    private ResponseEntity<Usuario> SalvarUsuario(@Valid @RequestBody Usuario usuario){
         VerificarCPF verificarCPF = new VerificarCPF();
 
         if(!verificarCPF.verificarCPF(usuario.getCPF())){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(usuario);
         }
-        if (verificarCPF.verificarCPF(usuario.getCPF())){
-            Usuario usuarioSalvo = usuarioService.SalvarUsuario(usuario);
-            return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);
-        }
-
-        return null;
+        Usuario usuarioSalvo = usuarioService.SalvarUsuario(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);
     }
 
     @GetMapping("/{id}")

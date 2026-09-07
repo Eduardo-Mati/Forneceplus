@@ -1,0 +1,70 @@
+
+{
+  "categoria": 
+  {
+    "nomeCategoria": "Eletrônicos",
+    "descricao": "Produtos eletrônicos",
+    "status": "ATIVA"
+  },
+
+
+  "fornecedor": 
+  {
+    "nomeFornecedor": "Fornecedor ABC",
+    "emailFornecedor": "contato@abc.com",
+    "descricaoFornecedor": "Distribuidor de produtos",
+    "telefoneFornecedor": 11999999999,
+    "enderecoFornecedor": "Rua A, 100",
+    "CNPJFornecedor": "12345678000195"
+  },
+  "usuarios":
+  {
+    "nome": "Maria Silva",
+    "email": "maria@email.com",
+    "senha": "senha123",
+    "CPF": "52998224725",
+    "endereco": "Rua B, 200",
+    "telefone": 11988888888
+  },
+
+  "produtos": 
+  {
+  "nomeProduto": "Notebook",
+  "quantidade": "10",
+  "descricao": "Notebook para escritório",
+  "categoria": {
+    "idCategoria": 1
+  },
+  "fornecedor": {
+    "idFornecedor": 1
+  },
+  "preco": "3500.00"
+},
+
+"vendas":
+{
+  "itens": [],
+  "valor": 3500.00,
+  "data": "2026-09-07",
+  "usuario": {
+    "idUsuario": 1
+  },
+  "status": "ABERTA",
+  "observacao": "",
+  "formaPagamento": "PIX"
+},
+
+"itens":
+{
+  "venda": {
+    "idVenda": 1
+  },
+  "produto": {
+    "idProduto": 1
+  },
+  "quantidade": 2,
+  "preco": 3500.00,
+  "statusItem": "SEPARANDO"
+}
+  
+}

@@ -25,6 +25,9 @@ public class FornecedorService {
         return fornecedorRepository.findById(id);
     }
     public void DeletarFornecedor(Long id){
+        if (!fornecedorRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Fornecedor não encontrado");
+        }
         fornecedorRepository.deleteById(id);
     }
     public Fornecedor AtualizarFornecedor(Long id, Fornecedor fornecedorNovo){

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public class ItemVendaController {
     }
 
     @PostMapping
-    private ResponseEntity<ItemVenda> AdicionarItem(@RequestBody ItemVenda item){
+    private ResponseEntity<ItemVenda> AdicionarItem(@Valid @RequestBody ItemVenda item){
         ItemVenda itemSalvo = itemVendaService.SalvarItem(item);
         return ResponseEntity.status(HttpStatus.CREATED).body(itemSalvo);
     }

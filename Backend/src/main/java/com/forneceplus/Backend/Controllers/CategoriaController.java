@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,7 @@ public class CategoriaController {
     }
 
     @PostMapping
-    private ResponseEntity<Categoria> SalvarCategoria(@RequestBody Categoria categoria){
+    private ResponseEntity<Categoria> SalvarCategoria(@Valid @RequestBody Categoria categoria){
         //return ResponseEntity.ok(categoriaService.SalvarCategoria(categoria));
 
         Categoria categoriaNova = categoriaService.SalvarCategoria(categoria);
