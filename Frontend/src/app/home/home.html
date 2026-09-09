@@ -1,0 +1,21 @@
+<p>home works!</p>
+
+<h1>{{ retornarNome() }}</h1>
+
+<ol>
+    <li> {{ lista[0].nome }}</li>
+    <li> {{ lista[1].nome }}</li>
+    <li> {{ lista[2].nome }}</li>
+</ol>
+
+<div *ngFor="let item of lista">
+    <h1> {{ item.nome }} </h1>
+</div>
+
+<div *ngIf="!condicional">
+    <h1> Falso </h1>
+</div>
+
+<div *ngIf="condicionalVerdadeira">
+    <h1> Verdadeiro </h1>
+</div>
