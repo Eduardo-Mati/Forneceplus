@@ -1,1 +1,41 @@
-<p>item-venda works!</p>
+<div class="Container">
+	<div class="login-form">
+		<form [formGroup]="itemVendaForm" class="loginContainer" (ngSubmit)="enviarDados()">
+			<h1>Cadastro de item de venda</h1>
+
+			<mat-form-field appearance="outline">
+				<mat-label>ID da venda</mat-label>
+				<input type="number" formControlName="idVenda" matInput placeholder="Digite o ID da venda">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>ID do produto</mat-label>
+				<input type="number" formControlName="idProduto" matInput placeholder="Digite o ID do produto">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Quantidade</mat-label>
+				<input type="number" formControlName="quantidade" matInput placeholder="Digite a quantidade">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Preço</mat-label>
+				<input type="number" formControlName="preco" matInput placeholder="Digite o preço">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Status do item</mat-label>
+				<input type="text" formControlName="statusItem" matInput placeholder="Ex.: ABERTO">
+			</mat-form-field>
+
+			<button matButton="filled" type="submit" [disabled]="itemVendaForm.invalid">Cadastrar</button>
+
+			<div class="item-list">
+				<p *ngFor="let item of listarItens">
+					{{ item }}
+				</p>
+			</div>
+		</form>
+
+	</div>
+</div>

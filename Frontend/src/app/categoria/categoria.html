@@ -1,1 +1,24 @@
-<p>categoria works!</p>
+<div class="Container">
+	<div class="form-wrapper">
+		<form [formGroup]="categoriaForm" class="form-container" (ngSubmit)="enviarDados()">
+			<h1>Cadastro de categoria</h1>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Nome da categoria</mat-label>
+				<input type="text" formControlName="nomeCategoria" matInput placeholder="Digite o nome da categoria">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Descrição</mat-label>
+				<input type="text" formControlName="descricao" matInput placeholder="Descreva a categoria">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Status</mat-label>
+				<input type="text" formControlName="status" matInput placeholder="Ex.: ATIVA">
+			</mat-form-field>
+
+			<button matButton="filled" type="submit" [disabled]="categoriaForm.invalid" (click)="enviarDados()">Cadastrar</button>
+		</form>
+	</div>
+</div>

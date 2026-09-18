@@ -7,7 +7,12 @@ import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
+  imports: [
+    ReactiveFormsModule, 
+    MatButtonModule, 
+    MatFormFieldModule, 
+    MatInputModule
+  ],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -22,7 +27,7 @@ export class Login implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.criarFormulario();
+    this.criarFormulario(); //Função chamada na hora que carrega o componente
   }
 
   private criarFormulario(): void {
