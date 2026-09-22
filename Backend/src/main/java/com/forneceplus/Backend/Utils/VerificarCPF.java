@@ -5,6 +5,9 @@ package com.forneceplus.Backend.Utils;
 public class VerificarCPF {
 
     public static boolean verificarCPF(String cpf) {
+        if (cpf == null) {
+            return false;
+        }
         // Remove não digitos
         cpf = cpf.replaceAll("[^0-9]", "");
 

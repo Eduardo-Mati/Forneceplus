@@ -1,0 +1,42 @@
+
+
+<div class="Container">
+	<div class="login-form">
+		<form [formGroup]="vendaForm" class="loginContainer" (ngSubmit)="enviarDados()">
+			<h1>Cadastro de venda</h1>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Valor</mat-label>
+				<input type="number" formControlName="valor" matInput placeholder="Digite o valor">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Data</mat-label>
+				<input type="date" formControlName="data" matInput placeholder="AAAA-MM-DD">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>ID do usuário</mat-label>
+				<input type="number" formControlName="idUsuario" matInput placeholder="Digite o ID do usuário">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Status</mat-label>
+				<input type="text" formControlName="status" matInput placeholder="Ex.: ABERTA">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Observação</mat-label>
+				<input type="text" formControlName="observacao" matInput placeholder="Digite uma observação">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Forma de pagamento</mat-label>
+				<input type="text" formControlName="formaPagamento" matInput placeholder="Ex.: PIX">
+			</mat-form-field>
+
+			<button matButton="filled" type="submit" [disabled]="vendaForm.invalid" (click)="enviarDados()">Cadastrar</button>
+
+		</form>
+	</div>
+</div>

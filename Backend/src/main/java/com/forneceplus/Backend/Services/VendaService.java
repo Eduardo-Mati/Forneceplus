@@ -1,6 +1,8 @@
 package com.forneceplus.Backend.Services;
 import com.forneceplus.Backend.Entities.Venda;
 import com.forneceplus.Backend.Exceptions.ResourceNotFoundException;
+import com.forneceplus.Backend.Entities.Usuario;
+import com.forneceplus.Backend.Repositories.UsuarioRepository;
 import com.forneceplus.Backend.Repositories.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +16,24 @@ public class VendaService {
     @Autowired
     private VendaRepository vendaRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     public List<Venda> ListarVendas(){
         return vendaRepository.findAll();
     }
 
     public Venda SalvarVenda(Venda venda){
+        Usuario usuario = usuarioRepository.findById(venda.getUsuario().getIdUsuario())
+            .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+        venda.setUsuario(usuario);
         return vendaRepository.save(venda);
     }
 
     public void DeletarVenda(Long id){
+        if (!vendaRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Venda não encontrada");
+        }
         vendaRepository.deleteById(id);
     }
     public Venda AtualizarVenda(Long id, Venda vendaNova){
@@ -32,21 +43,14 @@ public class VendaService {
         if (vendaNova.getData() != null) {
             vendaAntiga.setData(vendaNova.getData());
         }
-        if (vendaNova.getFornecedor() != null){
-            vendaAntiga.setFornecedor(vendaNova.getFornecedor());
-        }
+
         if(vendaNova.getObservacao() != null){
             vendaAntiga.setObservacao(vendaNova.getObservacao());
         }
-        if (vendaNova.getProduto() != null) {
-            vendaAntiga.setProduto(vendaNova.getProduto());
+        if (vendaNova.getItens() != null) {
+            vendaAntiga.setItens(vendaNova.getItens());
         }
-        if(vendaNova.getQuantidade() != null){
-            vendaAntiga.setQuantidade(vendaNova.getQuantidade());
-        }
-        if (vendaNova.getUsuario() != null) {
-            vendaAntiga.setUsuario(vendaNova.getUsuario());
-        }
+
         if (vendaNova.getStatus() != null) {
             vendaAntiga.setStatus(vendaNova.getStatus());
         }
@@ -55,6 +59,11 @@ public class VendaService {
         }
         if (vendaNova.getValor() != null) {
             vendaAntiga.setValor(vendaNova.getValor());
+        }
+        if (vendaNova.getUsuario() != null) {
+            Usuario usuario = usuarioRepository.findById(vendaNova.getUsuario().getIdUsuario())
+                    .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+            vendaAntiga.setUsuario(usuario);
         }
 
 

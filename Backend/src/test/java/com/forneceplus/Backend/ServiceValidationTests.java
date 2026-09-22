@@ -26,6 +26,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
+import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -64,18 +65,20 @@ class ServiceValidationTests {
 
     @Test
     void atualizacaoParcialMantemCamposNaoInformados() {
-        ItemVenda item = new ItemVenda(1L, "Produto antigo", "2", "10", "2026-09-03", "ABERTO");
-        ItemVenda dadosNovos = new ItemVenda(null, null, null, "12", null, null);
+        Produto produto = new Produto();
+        Venda venda = new Venda();
+        ItemVenda item = new ItemVenda(1L, venda, produto, 2, new BigDecimal("10"), "ABERTO");
+        ItemVenda dadosNovos = new ItemVenda(null, null, null, null, new BigDecimal("12"), null);
         when(itemVendaRepository.findById(1L)).thenReturn(Optional.of(item));
         when(itemVendaRepository.save(any(ItemVenda.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         ItemVenda atualizado = itemVendaService.AtualizarItem(1L, dadosNovos);
 
-        assertEquals("Produto antigo", atualizado.getProduto());
-        assertEquals("2", atualizado.getQuantidade());
-        assertEquals("12", atualizado.getPreco());
-        assertEquals("2026-09-03", atualizado.getDataVenda());
-        assertEquals("ABERTO", atualizado.getStatusVenda());
+        assertEquals(produto, atualizado.getProduto());
+        assertEquals(2, atualizado.getQuantidade());
+        assertEquals(new BigDecimal("12"), atualizado.getPreco());
+        assertEquals(venda, atualizado.getVenda());
+        assertEquals("ABERTO", atualizado.getStatusItem());
         verify(itemVendaRepository).save(item);
     }
 

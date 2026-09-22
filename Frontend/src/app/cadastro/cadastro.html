@@ -1,0 +1,42 @@
+<div class="Container">
+	<div class="login-form">
+		<form [formGroup]="cadastroForm" class="loginContainer">
+			<h1>Cadastro de usuário</h1>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Nome</mat-label>
+				<input type="text" formControlName="nome" matInput placeholder="Digite seu nome">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>E-mail</mat-label>
+				<input type="email" formControlName="email" matInput placeholder="Digite seu e-mail">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Senha</mat-label>
+				<input type="password" formControlName="senha" matInput placeholder="Digite sua senha">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>CPF</mat-label>
+				<input type="text" formControlName="CPF" matInput maxlength="11" placeholder="Digite 11 números">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Endereço</mat-label>
+				<input type="text" formControlName="endereco" matInput placeholder="Digite seu endereço">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Telefone</mat-label>
+				<input type="number" formControlName="telefone" matInput placeholder="Digite seu telefone">
+			</mat-form-field>
+
+			<button matButton="filled" type="submit" [disabled]="cadastroForm.invalid" (click)="enviarDados()">Cadastrar</button>
+
+			<p>Não possui uma conta? <a href="/cadastro">Cadastre-se</a></p>
+			
+		</form>
+	</div>
+</div>

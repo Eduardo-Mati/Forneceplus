@@ -24,6 +24,9 @@ public class CategoriaService {
         return categoriaRepository.findById(id);
     }
     public void DeletarCategoria(Long id){
+        if (!categoriaRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Categoria não encontrada");
+        }
         categoriaRepository.deleteById(id);
     }
     public Categoria AtualizarCategoria(Long id, Categoria categoriaNova){

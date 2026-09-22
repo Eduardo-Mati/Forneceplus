@@ -1,0 +1,40 @@
+<div class="Container">
+	<div class="login-form">
+		<form [formGroup]="fornecedorForm" class="loginContainer" (ngSubmit)="enviarDados()">
+			<h1>Cadastro de fornecedor</h1>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Nome</mat-label>
+				<input type="text" formControlName="nomeFornecedor" matInput placeholder="Digite o nome do fornecedor">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>E-mail</mat-label>
+				<input type="email" formControlName="emailFornecedor" matInput placeholder="Digite o e-mail">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Descrição</mat-label>
+				<input type="text" formControlName="descricaoFornecedor" matInput placeholder="Descreva o fornecedor">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Telefone</mat-label>
+				<input type="number" formControlName="telefoneFornecedor" matInput placeholder="Digite o telefone">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Endereço</mat-label>
+				<input type="text" formControlName="enderecoFornecedor" matInput placeholder="Digite o endereço">
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>CNPJ</mat-label>
+				<input type="text" formControlName="CNPJFornecedor" matInput maxlength="14" placeholder="Digite 14 números">
+			</mat-form-field>
+
+			<button matButton="filled" type="submit" [disabled]="fornecedorForm.invalid" (click)="enviarDados()">Cadastrar</button>
+
+		</form>
+	</div>
+</div>

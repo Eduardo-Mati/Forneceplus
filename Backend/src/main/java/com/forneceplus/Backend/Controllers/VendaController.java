@@ -1,12 +1,12 @@
 package com.forneceplus.Backend.Controllers;
 
 import com.forneceplus.Backend.Entities.Venda;
-import com.forneceplus.Backend.Repositories.VendaRepository;
 import com.forneceplus.Backend.Services.VendaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,9 +24,15 @@ public class VendaController {
     }
 
     @PostMapping
-    private ResponseEntity<Venda> SalvarVenda(@RequestBody Venda venda) {
+    private ResponseEntity<Venda> SalvarVenda(@Valid @RequestBody Venda venda) {
         Venda vendaSalva = vendaService.SalvarVenda(venda);
         return ResponseEntity.status(HttpStatus.CREATED).body(vendaSalva);
+    }
+
+    @PutMapping("/{id}")
+    private ResponseEntity<Venda> AtualizarVenda(@PathVariable Long id, @RequestBody Venda venda) {
+        Venda vendaAtualizada = vendaService.AtualizarVenda(id, venda);
+        return ResponseEntity.ok(vendaAtualizada);
     }
 
     @DeleteMapping("/{id}")

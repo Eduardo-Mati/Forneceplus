@@ -1,0 +1,48 @@
+.Container {
+	max-width: 1200px;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	padding: 0 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	.example-label {
+		font-size: 14px;
+		margin: 0 16px 0 8px;
+		min-width: 120px;
+	}
+
+	.example-button-row {
+		max-width: 600px;
+	}
+
+	.example-button-row .mat-mdc-button-base {
+		margin: 8px 8px 8px 0;
+	}
+
+	.example-flex-container {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+}
+
+.loginContainer {
+	display: flex;
+	flex-direction: column;
+	width: 20vw;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	border-color: black;
+	align-items: center;
+	padding: 20px;
+}
+
+.login-form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
