@@ -1,7 +1,7 @@
 <div class="Container">
 	<div class="form-wrapper">
-		<form [formGroup]="categoriaForm" class="form-container" (ngSubmit)="enviarDados()">
-			<h1>Cadastro de categoria</h1>
+		<form [formGroup]="categoriaForm" class="form-container">
+			<h1>{{ categoriaEmEdicao ? 'Editar categoria' : 'Cadastro de categoria' }}</h1>
 
 			<mat-form-field appearance="outline">
 				<mat-label>Nome da categoria</mat-label>
@@ -18,7 +18,30 @@
 				<input type="text" formControlName="status" matInput placeholder="Ex.: ATIVA">
 			</mat-form-field>
 
-			<button matButton="filled" type="submit" [disabled]="categoriaForm.invalid" (click)="enviarDados()">Cadastrar</button>
+			<div class="form-actions">
+				<button matButton="filled" type="submit" [disabled]="categoriaForm.invalid" (click)="enviarDados()">{{ categoriaEmEdicao ? 'Atualizar' : 'Cadastrar' }}</button>
+				<button matButton="outlined" type="button" *ngIf="categoriaEmEdicao" (click)="cancelarEdicao()">Cancelar</button>
+			</div>
 		</form>
 	</div>
+
+	<section class="list-wrapper">
+		<h2>Categorias cadastradas</h2>
+		<p *ngIf="listarCategorias.length === 0">Nenhuma categoria cadastrada.</p>
+		<div class="table-wrapper" *ngIf="listarCategorias.length > 0">
+			<table>
+				<thead><tr>
+					<th>ID</th>
+					<th>Nome</th>
+					<th>Descrição</th>
+					<th>Status</th>
+					<th>Ações</th>
+				</tr></thead>
+				<tbody>
+					<tr *ngFor="let categoria of listarCategorias"><td>{{ categoria.idCategoria }}</td><td>{{ categoria.nomeCategoria }}</td><td>{{ categoria.descricao }}</td><td>{{ categoria.status }}</td>
+						<td class="row-actions"><button matButton="outlined" (click)="editarCategoria(categoria)">Editar</button><button matButton="outlined" color="warn" (click)="excluirCategoria(categoria)">Excluir</button></td></tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
 </div>

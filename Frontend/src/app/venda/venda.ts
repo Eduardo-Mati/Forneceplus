@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -6,15 +7,27 @@ import { MatInputModule } from '@angular/material/input';
 import { debounceTime, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
+interface VendaModel {
+  idVenda: number;
+  valor: number;
+  data: string;
+  idUsuario: number;
+  status: string;
+  observacao: string;
+  formaPagamento: string;
+}
+
 @Component({
   selector: 'app-venda',
-  imports: [ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
+  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './venda.html',
   styleUrl: './venda.css',
+  standalone: true
 })
 export class Venda implements OnInit {
   vendaForm!: FormGroup;
-  listarVendas = [];
+  listarVendas: VendaModel[] = [];
+  vendaEmEdicao: VendaModel | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,8 +40,13 @@ export class Venda implements OnInit {
       console.log(res);
     });
 
-    this.httpClient.get('http://localhost:8081/vendas').subscribe((res: any) => {
-      this.listarVendas = res;
+    this.carregarVendas();
+  }
+
+  private carregarVendas(): void {
+    this.httpClient.get<VendaModel[]>('http://localhost:8081/vendas').subscribe({
+      next: (res) => this.listarVendas = res,
+      error: () => this.listarVendas = []
     });
   }
   
@@ -48,8 +66,36 @@ export class Venda implements OnInit {
     console.log(this.vendaForm.valid);
     console.log(this.vendaForm.getRawValue());
     if (this.vendaForm.valid) {
-      this.httpClient.post('http://localhost:8081/vendas', this.vendaForm.getRawValue()).subscribe(() => {
+      const dados = this.vendaForm.getRawValue();
+      const requisicao = this.vendaEmEdicao
+        ? this.httpClient.put(`http://localhost:8081/vendas/${this.vendaEmEdicao.idVenda}`, dados)
+        : this.httpClient.post('http://localhost:8081/vendas', dados);
+
+      requisicao.subscribe(() => {
+        this.carregarVendas();
+        this.cancelarEdicao();
       });
     }
+  }
+
+  editarVenda(venda: VendaModel): void {
+    this.vendaEmEdicao = venda;
+    this.vendaForm.patchValue(venda);
+  }
+
+  excluirVenda(venda: VendaModel): void {
+    if (confirm(`Excluir a venda ${venda.idVenda}?`)) {
+      this.httpClient.delete(`http://localhost:8081/vendas/${venda.idVenda}`).subscribe(() => {
+        this.carregarVendas();
+        if (this.vendaEmEdicao?.idVenda === venda.idVenda) {
+          this.cancelarEdicao();
+        }
+      });
+    }
+  }
+
+  cancelarEdicao(): void {
+    this.vendaEmEdicao = null;
+    this.vendaForm.reset();
   }
 }

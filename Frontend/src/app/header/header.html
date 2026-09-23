@@ -1,1 +1,14 @@
-<p>header works!</p>
+<header class="site-header">
+	<a class="brand" routerLink="/home">Sistema de vendas</a>
+
+	<nav class="navigation" aria-label="Navegação principal">
+		<a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+		<a routerLink="/cadastro" routerLinkActive="active">Cadastro</a>
+		<a routerLink="/login" routerLinkActive="active">Login</a>
+		<a routerLink="/categoria" routerLinkActive="active">Categorias</a>
+		<a routerLink="/fornecedor" routerLinkActive="active">Fornecedores</a>
+		<a routerLink="/produto" routerLinkActive="active">Produtos</a>
+		<a routerLink="/venda" routerLinkActive="active">Vendas</a>
+		<a routerLink="/itens" routerLinkActive="active">Itens de venda</a>
+	</nav>
+</header>

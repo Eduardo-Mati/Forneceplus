@@ -1,7 +1,7 @@
 <div class="Container">
 	<div class="login-form">
-		<form [formGroup]="produtoForm" class="loginContainer" (ngSubmit)="enviarDados()">
-			<h1>Cadastro de produto</h1>
+		<form [formGroup]="produtoForm" class="loginContainer">
+			<h1>{{ produtoEmEdicao ? 'Editar produto' : 'Cadastro de produto' }}</h1>
 
 			<mat-form-field appearance="outline">
 				<mat-label>Nome do produto</mat-label>
@@ -33,8 +33,33 @@
 				<input type="number" formControlName="idFornecedor" matInput placeholder="Digite o ID do fornecedor">
 			</mat-form-field>
 
-			<button matButton="filled" type="submit" [disabled]="produtoForm.invalid" (click)="enviarDados()">Cadastrar</button>
+			<div class="form-actions">
+				<button matButton="filled" type="submit" [disabled]="produtoForm.invalid" (click)="enviarDados()">{{ produtoEmEdicao ? 'Atualizar' : 'Cadastrar' }}</button>
+				<button matButton="outlined" type="button" *ngIf="produtoEmEdicao" (click)="cancelarEdicao()">Cancelar</button>
+			</div>
 
 		</form>
 	</div>
+
+	<section class="list-wrapper">
+		<h2>Produtos cadastrados</h2>
+		<p *ngIf="listarProdutos.length === 0">Nenhum produto cadastrado.</p>
+		<div class="table-wrapper" *ngIf="listarProdutos.length > 0">
+			<table>
+				<thead><tr>
+					<th>ID</th>
+					<th>Nome</th>
+					<th>Quantidade</th>
+					<th>Preço</th>
+					<th>Categoria</th>
+					<th>Fornecedor</th>
+					<th>Ações</th>
+				</tr></thead>
+				<tbody>
+					<tr *ngFor="let produto of listarProdutos"><td>{{ produto.idProduto }}</td><td>{{ produto.nomeProduto }}</td><td>{{ produto.quantidade }}</td><td>{{ produto.preco }}</td><td>{{ produto.idCategoria }}</td><td>{{ produto.idFornecedor }}</td>
+						<td class="row-actions"><button matButton="outlined" (click)="editarProduto(produto)">Editar</button><button matButton="outlined" color="warn" (click)="excluirProduto(produto)">Excluir</button></td></tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
 </div>

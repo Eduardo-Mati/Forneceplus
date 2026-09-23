@@ -2,8 +2,8 @@
 
 <div class="Container">
 	<div class="login-form">
-		<form [formGroup]="vendaForm" class="loginContainer" (ngSubmit)="enviarDados()">
-			<h1>Cadastro de venda</h1>
+		<form [formGroup]="vendaForm" class="loginContainer">
+			<h1>{{ vendaEmEdicao ? 'Editar venda' : 'Cadastro de venda' }}</h1>
 
 			<mat-form-field appearance="outline">
 				<mat-label>Valor</mat-label>
@@ -35,8 +35,33 @@
 				<input type="text" formControlName="formaPagamento" matInput placeholder="Ex.: PIX">
 			</mat-form-field>
 
-			<button matButton="filled" type="submit" [disabled]="vendaForm.invalid" (click)="enviarDados()">Cadastrar</button>
+			<div class="form-actions">
+				<button matButton="filled" type="submit" [disabled]="vendaForm.invalid" (click)="enviarDados()">{{ vendaEmEdicao ? 'Atualizar' : 'Cadastrar' }}</button>
+				<button matButton="outlined" type="button" *ngIf="vendaEmEdicao" (click)="cancelarEdicao()">Cancelar</button>
+			</div>
 
 		</form>
 	</div>
+
+	<section class="list-wrapper">
+		<h2>Vendas cadastradas</h2>
+		<p *ngIf="listarVendas.length === 0">Nenhuma venda cadastrada.</p>
+		<div class="table-wrapper" *ngIf="listarVendas.length > 0">
+			<table>
+				<thead><tr>
+					<th>ID</th>
+					<th>Valor</th>
+					<th>Data</th>
+					<th>Usuário</th>
+					<th>Status</th>
+					<th>Pagamento</th>
+					<th>Ações</th>
+				</tr></thead>
+				<tbody>
+					<tr *ngFor="let venda of listarVendas"><td>{{ venda.idVenda }}</td><td>{{ venda.valor }}</td><td>{{ venda.data }}</td><td>{{ venda.idUsuario }}</td><td>{{ venda.status }}</td><td>{{ venda.formaPagamento }}</td>
+						<td class="row-actions"><button matButton="outlined" (click)="editarVenda(venda)">Editar</button><button matButton="outlined" color="warn" (click)="excluirVenda(venda)">Excluir</button></td></tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
 </div>

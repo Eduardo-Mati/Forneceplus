@@ -3,27 +3,38 @@ import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { Router, RouterLink } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
-
+interface LoginModel {
+  email: string;
+  senha: string;
+}
 @Component({
   selector: 'app-login',
   imports: [
-    ReactiveFormsModule, 
-    MatButtonModule, 
-    MatFormFieldModule, 
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
     MatInputModule
-  ],
+],
   templateUrl: './login.html',
-  styleUrl: './login.css'
+  styleUrl: './login.css',
+  standalone: true
 })
 
 export class Login implements OnInit {
   
 
   loginForm!: FormGroup;
+  ValidarLogin: LoginModel[] = [];
+
+  mensagemErro = '';
 
   constructor( 
-    private formBuilder: FormBuilder 
+    private formBuilder: FormBuilder,
+    private httpClient: HttpClient,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -32,13 +43,40 @@ export class Login implements OnInit {
 
   private criarFormulario(): void {
     this.loginForm = this.formBuilder.group({
-      login: [ "" , Validators.required ],
-      password: [ "" , Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/) ]
+      email: [ "" , Validators.required ],
+      senha: [ "" ,[ Validators.required, Validators.minLength(6) ] ]
     });
   }
+  
   public enviarDados(): void {
-    console.log(this.loginForm.getRawValue());
+    
+    if(this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
+    
+    const dadosLogin = this.loginForm.getRawValue();
 
-    //url backend = localhost:8081/login
+    this.httpClient.get<LoginModel[]>('http://localhost:8081/usuarios').subscribe({
+      next: (usuarios) => {
+        const usuarioEncontrado = usuarios.find(
+          usuario => 
+            usuario.email === dadosLogin.email && 
+            usuario.senha === dadosLogin.senha
+        );
+
+        if (usuarioEncontrado) {
+          console.log('Login bem-sucedido!');
+          this.router.navigate(['/home']);
+        } else {
+          console.log('Login ou senha incorretos.');
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao buscar usuários:', error);
+      }
+    });
+
+
   }
 }

@@ -7,10 +7,19 @@ import { MatInputModule } from '@angular/material/input';
 import { debounceTime, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
+interface ItemVendaModel {
+  idItemVenda: number;
+  idVenda: number;
+  idProduto: number;
+  quantidade: number;
+  preco: number;
+  statusItem: string;
+}
+
 @Component({
   selector: 'app-item-venda',
   imports: [
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     MatButtonModule, 
     MatFormFieldModule, 
     MatInputModule,
@@ -20,11 +29,13 @@ import { HttpClient } from '@angular/common/http';
   ],
   templateUrl: './item-venda.html',
   styleUrl: './item-venda.css',
+  standalone: true
 })
 export class ItemVenda implements OnInit {
 
   itemVendaForm!: FormGroup;
-  listarItens = [];
+  listarItens: ItemVendaModel[] = [];
+  itemEmEdicao: ItemVendaModel | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,12 +49,13 @@ export class ItemVenda implements OnInit {
       console.log(res);
     });
     
-    this.httpClient.get('http://localhost:8081/itens').subscribe((res: any) => {
-      this.listarItens = res;
-    });
+    this.carregarItens();
+  }
 
-    this.httpClient.get('http://localhost:8081/vendas').subscribe((res: any) => {
-      this.listarItens = res;
+  private carregarItens(): void {
+    this.httpClient.get<ItemVendaModel[]>('http://localhost:8081/itens').subscribe({
+      next: (res) => this.listarItens = res,
+      error: () => this.listarItens = []
     });
   }
   private criarFormulario(): void { // Função que cria o formulario passando cada um dos campos JSON
@@ -61,8 +73,36 @@ export class ItemVenda implements OnInit {
     console.log(this.itemVendaForm.valid);
     console.log(this.itemVendaForm.getRawValue());
     if (this.itemVendaForm.valid) {
-      this.httpClient.post('http://localhost:8081/itens', this.itemVendaForm.getRawValue()).subscribe(() => {
+      const dados = this.itemVendaForm.getRawValue();
+      const requisicao = this.itemEmEdicao
+        ? this.httpClient.put(`http://localhost:8081/itens/${this.itemEmEdicao.idItemVenda}`, dados)
+        : this.httpClient.post('http://localhost:8081/itens', dados);
+
+      requisicao.subscribe(() => {
+        this.carregarItens();
+        this.cancelarEdicao();
       });
     }
+  }
+
+  editarItem(item: ItemVendaModel): void {
+    this.itemEmEdicao = item;
+    this.itemVendaForm.patchValue(item);
+  }
+
+  excluirItem(item: ItemVendaModel): void {
+    if (confirm(`Excluir o item ${item.idItemVenda}?`)) {
+      this.httpClient.delete(`http://localhost:8081/itens/${item.idItemVenda}`).subscribe(() => {
+        this.carregarItens();
+        if (this.itemEmEdicao?.idItemVenda === item.idItemVenda) {
+          this.cancelarEdicao();
+        }
+      });
+    }
+  }
+
+  cancelarEdicao(): void {
+    this.itemEmEdicao = null;
+    this.itemVendaForm.reset();
   }
 }

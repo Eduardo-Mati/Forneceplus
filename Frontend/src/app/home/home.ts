@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Pessoa } from '../models/pessoa';
+import { Pessoa } from '../models/Pessoa';
 import { ɵInternalFormsSharedModule } from "@angular/forms";
 import { CommonModule } from '@angular/common';
 
