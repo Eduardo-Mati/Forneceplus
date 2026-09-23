@@ -1,12 +1,13 @@
 .Container {
 	max-width: 1200px;
 	width: 100%;
-	height: 100%;
+	min-height: 100%;
 	margin: 0 auto;
 	padding: 0 20px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 }
 
 .form-container {
@@ -25,3 +26,10 @@
 	justify-content: center;
 	align-items: center;
 }
+
+.form-actions, .row-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.list-wrapper { width: 100%; margin-top: 24px; }
+.table-wrapper { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+th { background: #f3f3f3; }

@@ -7,6 +7,14 @@ import { debounceTime, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
+interface CadastroModel {
+  nome: string;
+  email: string;
+  senha: string;
+  CPF: string;
+  endereco: string;
+  telefone: string;
+}
 @Component({
   selector: 'app-cadastro',
   imports: [
@@ -16,7 +24,8 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
     CommonModule],
   templateUrl: './cadastro.html',
-  styleUrl: './cadastro.css'
+  styleUrl: './cadastro.css',
+  standalone: true
 })
 export class Cadastro implements OnInit {
   cadastroForm!: FormGroup;
@@ -53,7 +62,7 @@ export class Cadastro implements OnInit {
     console.log(this.cadastroForm.valid);
     console.log(this.cadastroForm.getRawValue());
     if (this.cadastroForm.valid) {
-      this.httpClient.post('http://localhost:8081/usuarios', this.cadastroForm.getRawValue()).subscribe(() => {
+      this.httpClient.post<CadastroModel>('http://localhost:8081/usuarios', this.cadastroForm.getRawValue()).subscribe(() => {
       
       });
     }
