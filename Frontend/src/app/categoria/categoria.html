@@ -1,6 +1,6 @@
 <div class="Container">
 	<div class="form-wrapper">
-		<form [formGroup]="categoriaForm" class="form-container">
+		<form [formGroup]="categoriaForm" class="form-container" (ngSubmit)="enviarDados()">
 			<h1>{{ categoriaEmEdicao ? 'Editar categoria' : 'Cadastro de categoria' }}</h1>
 
 			<mat-form-field appearance="outline">
@@ -19,7 +19,7 @@
 			</mat-form-field>
 
 			<div class="form-actions">
-				<button matButton="filled" type="submit" [disabled]="categoriaForm.invalid" (click)="enviarDados()">{{ categoriaEmEdicao ? 'Atualizar' : 'Cadastrar' }}</button>
+				<button matButton="filled" type="submit" [disabled]="categoriaForm.invalid">{{ categoriaEmEdicao ? 'Atualizar' : 'Cadastrar' }}</button>
 				<button matButton="outlined" type="button" *ngIf="categoriaEmEdicao" (click)="cancelarEdicao()">Cancelar</button>
 			</div>
 		</form>

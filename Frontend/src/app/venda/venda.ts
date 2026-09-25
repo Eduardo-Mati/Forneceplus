@@ -66,7 +66,15 @@ export class Venda implements OnInit {
     console.log(this.vendaForm.valid);
     console.log(this.vendaForm.getRawValue());
     if (this.vendaForm.valid) {
-      const dados = this.vendaForm.getRawValue();
+      const formulario = this.vendaForm.getRawValue();
+      const dados = {
+        valor: formulario.valor,
+        data: formulario.data,
+        usuario: { idUsuario: formulario.idUsuario },
+        status: formulario.status,
+        observacao: formulario.observacao,
+        formaPagamento: formulario.formaPagamento
+      };
       const requisicao = this.vendaEmEdicao
         ? this.httpClient.put(`http://localhost:8081/vendas/${this.vendaEmEdicao.idVenda}`, dados)
         : this.httpClient.post('http://localhost:8081/vendas', dados);

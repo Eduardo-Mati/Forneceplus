@@ -1,6 +1,6 @@
 <div class="Container">
 	<div class="login-form">
-		<form [formGroup]="fornecedorForm" class="loginContainer">
+		<form [formGroup]="fornecedorForm" class="loginContainer" (ngSubmit)="enviarDados()">
 			<h1>{{ fornecedorEmEdicao ? 'Editar fornecedor' : 'Cadastro de fornecedor' }}</h1>
 
 			<mat-form-field appearance="outline">
@@ -32,9 +32,13 @@
 				<mat-label>CNPJ</mat-label>
 				<input type="text" formControlName="CNPJFornecedor" matInput maxlength="14" placeholder="Digite 14 números">
 			</mat-form-field>
+			<mat-form-field appearance="outline">
+				<mat-label>Descrição</mat-label>
+				<input type="text" formControlName="descricaoFornecedor" matInput placeholder="Descreva o fornecedor">
+			</mat-form-field>
 
 			<div class="form-actions">
-				<button matButton="filled" type="submit" [disabled]="fornecedorForm.invalid" (click)="enviarDados()">{{ fornecedorEmEdicao ? 'Atualizar' : 'Cadastrar' }}</button>
+				<button matButton="filled" type="submit" [disabled]="fornecedorForm.invalid">{{ fornecedorEmEdicao ? 'Atualizar' : 'Cadastrar' }}</button>
 				<button matButton="outlined" type="button" *ngIf="fornecedorEmEdicao" (click)="cancelarEdicao()">Cancelar</button>
 			</div>
 

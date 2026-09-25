@@ -66,7 +66,15 @@ export class Produto implements OnInit  {
     console.log(this.produtoForm.getRawValue());
     console.log(this.produtoForm.valid);
     if (this.produtoForm.valid) {
-      const dados = this.produtoForm.getRawValue();
+      const formulario = this.produtoForm.getRawValue();
+      const dados = {
+        nomeProduto: formulario.nomeProduto,
+        quantidade: formulario.quantidade,
+        descricao: formulario.descricao,
+        preco: formulario.preco,
+        categoria: { idCategoria: formulario.idCategoria },
+        fornecedor: { idFornecedor: formulario.idFornecedor }
+      };
       const requisicao = this.produtoEmEdicao
         ? this.httpClient.put(`http://localhost:8081/produtos/${this.produtoEmEdicao.idProduto}`, dados)
         : this.httpClient.post('http://localhost:8081/produtos', dados);

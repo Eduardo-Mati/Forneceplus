@@ -1,6 +1,6 @@
 <div class="Container">
 	<div class="login-form">
-		<form [formGroup]="cadastroForm" class="loginContainer">
+		<form [formGroup]="cadastroForm" class="loginContainer" (ngSubmit)="enviarDados()">
 			<h1>Cadastro de usuário</h1>
 
 			<mat-form-field appearance="outline">
@@ -21,6 +21,7 @@
 			<mat-form-field appearance="outline">
 				<mat-label>CPF</mat-label>
 				<input type="text" formControlName="CPF" matInput maxlength="11" placeholder="Digite 11 números">
+				<mat-error *ngIf="cadastroForm.get('CPF')?.hasError('pattern')">Digite exatamente 11 números.</mat-error>
 			</mat-form-field>
 
 			<mat-form-field appearance="outline">
@@ -33,7 +34,9 @@
 				<input type="number" formControlName="telefone" matInput placeholder="Digite seu telefone">
 			</mat-form-field>
 
-			<button matButton="filled" type="submit" [disabled]="cadastroForm.invalid" (click)="enviarDados()">Cadastrar</button>
+			<button matButton="filled" type="submit" [disabled]="cadastroForm.invalid">Cadastrar</button>
+			<p *ngIf="mensagemSucesso" class="success-message">{{ mensagemSucesso }}</p>
+			<p *ngIf="mensagemErro" class="error-message">{{ mensagemErro }}</p>
 
 			<p>Possui uma conta? <a href="/login">Faça login</a></p>
 			
@@ -55,8 +58,8 @@
 					<th>Telefone</th>
 				</tr></thead>
 				<tbody>
-					<tr *ngFor="let usuario of listarUsuarios"><td>{{ usuario.id }}</td><td>{{ usuario.nome }}</td><td>{{ usuario.email }}</td><td>{{ usuario.senha }}</td><td>{{ usuario.CPF }}</td><td>{{ usuario.endereco }}</td><td>{{ usuario.telefone }}</td>
-						<td class="row-actions"><button matButton="outlined" (click)="editarCadastro(usuario)">Editar</button><button matButton="outlined" color="warn" (click)="excluirCategoria(usuario)">Excluir</button></td></tr>
+					<tr *ngFor="let usuario of listarUsuarios"><td>{{ usuario.idUsuario }}</td><td>{{ usuario.nome }}</td><td>{{ usuario.email }}</td><td>{{ usuario.senha }}</td><td>{{ usuario.CPF }}</td><td>{{ usuario.endereco }}</td><td>{{ usuario.telefone }}</td>
+						<td class="row-actions"><button matButton="outlined" type="button" (click)="editarCadastro(usuario)">Editar</button><button matButton="outlined" color="warn" type="button" (click)="excluirUsuario(usuario)">Excluir</button></td></tr>
 				</tbody>
 			</table>
 		</div>

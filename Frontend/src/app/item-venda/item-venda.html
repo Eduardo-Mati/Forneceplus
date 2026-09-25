@@ -1,6 +1,6 @@
 <div class="Container">
 	<div class="login-form">
-		<form [formGroup]="itemVendaForm" class="loginContainer">
+		<form [formGroup]="itemVendaForm" class="loginContainer" (ngSubmit)="enviarDados()">
 			<h1>{{ itemEmEdicao ? 'Editar item de venda' : 'Cadastro de item de venda' }}</h1>
 
 			<mat-form-field appearance="outline">
@@ -29,7 +29,7 @@
 			</mat-form-field>
 
 			<div class="form-actions">
-				<button matButton="filled" type="submit" [disabled]="itemVendaForm.invalid" (click)="enviarDados()">{{ itemEmEdicao ? 'Atualizar' : 'Cadastrar' }}</button>
+				<button matButton="filled" type="submit" [disabled]="itemVendaForm.invalid">{{ itemEmEdicao ? 'Atualizar' : 'Cadastrar' }}</button>
 				<button matButton="outlined" type="button" *ngIf="itemEmEdicao" (click)="cancelarEdicao()">Cancelar</button>
 			</div>
 
