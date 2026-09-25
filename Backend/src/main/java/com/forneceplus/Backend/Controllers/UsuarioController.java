@@ -26,11 +26,7 @@ public class UsuarioController {
 
     @PostMapping
     private ResponseEntity<Usuario> SalvarUsuario(@Valid @RequestBody Usuario usuario){
-        VerificarCPF verificarCPF = new VerificarCPF();
 
-        if(!verificarCPF.verificarCPF(usuario.getCPF())){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(usuario);
-        }
         Usuario usuarioSalvo = usuarioService.SalvarUsuario(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);
     }
