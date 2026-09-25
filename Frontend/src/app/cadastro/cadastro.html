@@ -39,4 +39,26 @@
 			
 		</form>
 	</div>
+
+	<section class="list-wrapper">
+		<h2>Usuários cadastrados</h2>
+		<p *ngIf="listarUsuarios.length === 0">Nenhum usuário cadastrado.</p>
+		<div class="table-wrapper" *ngIf="listarUsuarios.length > 0">
+			<table>
+				<thead><tr>
+					<th>Id</th>
+					<th>Nome</th>
+					<th>Email</th>
+					<th>senha</th>
+					<th>CPF</th>
+					<th>Endereço</th>
+					<th>Telefone</th>
+				</tr></thead>
+				<tbody>
+					<tr *ngFor="let usuario of listarUsuarios"><td>{{ usuario.id }}</td><td>{{ usuario.nome }}</td><td>{{ usuario.email }}</td><td>{{ usuario.senha }}</td><td>{{ usuario.CPF }}</td><td>{{ usuario.endereco }}</td><td>{{ usuario.telefone }}</td>
+						<td class="row-actions"><button matButton="outlined" (click)="editarCadastro(usuario)">Editar</button><button matButton="outlined" color="warn" (click)="excluirCategoria(usuario)">Excluir</button></td></tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
 </div>

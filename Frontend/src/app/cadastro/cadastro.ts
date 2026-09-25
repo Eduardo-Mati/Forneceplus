@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 interface CadastroModel {
+  id: number;
   nome: string;
   email: string;
   senha: string;
@@ -27,9 +28,11 @@ interface CadastroModel {
   styleUrl: './cadastro.css',
   standalone: true
 })
+
 export class Cadastro implements OnInit {
   cadastroForm!: FormGroup;
-  listarUsuarios = [];
+  listarUsuarios: CadastroModel[] = [];
+  cadastroEmEdicao: CadastroModel | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,10 +44,14 @@ export class Cadastro implements OnInit {
     this.cadastroForm.valueChanges.pipe(debounceTime(400), take(2)).subscribe((res) => {
       console.log(res);
     });
-    this.httpClient.get('http://localhost:8081/usuarios').subscribe((res: any) => {
-      this.listarUsuarios = res;
+    this.carregarUsuarios();
+  }
+
+  private carregarUsuarios(): void {
+    this.httpClient.get<CadastroModel[]>('http://localhost:8081/usuarios').subscribe({
+      next: (res) => this.listarUsuarios = res,
+      error: () => this.listarUsuarios = []
     });
-    
   }
 
   private criarFormulario(): void {
@@ -58,12 +65,41 @@ export class Cadastro implements OnInit {
     });
   }
 
+  cancelarEdicao(): void {
+    this.cadastroEmEdicao = null;
+    this.cadastroForm.reset();
+  }
+
   enviarDados(): void {
     console.log(this.cadastroForm.valid);
     console.log(this.cadastroForm.getRawValue());
+    
     if (this.cadastroForm.valid) {
-      this.httpClient.post<CadastroModel>('http://localhost:8081/usuarios', this.cadastroForm.getRawValue()).subscribe(() => {
-      
+      const dados = this.cadastroForm.getRawValue();
+      const requisicao = this.cadastroEmEdicao
+        ? this.httpClient.put(`http://localhost:8081/usuarios/${this.cadastroEmEdicao.id}`, dados)
+        : this.httpClient.post('http://localhost:8081/usuarios', dados);
+
+      requisicao.subscribe(() => {
+        this.carregarUsuarios();
+        this.cancelarEdicao();
+      });
+    }
+  }
+
+  editarCadastro(categoria: CadastroModel): void {
+    this.cadastroEmEdicao = categoria;
+    this.cadastroForm.patchValue(categoria);
+  }
+
+
+  excluirCategoria(categoria: CadastroModel): void {
+    if (confirm(`Excluir a categoria "${categoria.nome}"?`)) {
+      this.httpClient.delete(`http://localhost:8081/usuarios/${categoria.id}`).subscribe(() => {
+        this.carregarUsuarios();
+        if (this.cadastroEmEdicao?.id === categoria.id) {
+          this.cancelarEdicao();
+        }
       });
     }
   }
