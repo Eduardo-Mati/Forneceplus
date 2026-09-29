@@ -35,12 +35,12 @@ export class Venda implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.carregarVendas();
     this.criarFormulario();
     this.vendaForm.valueChanges.pipe(debounceTime(400), take(2)).subscribe((res) => {
       console.log(res);
     });
 
-    this.carregarVendas();
   }
 
   private carregarVendas(): void {

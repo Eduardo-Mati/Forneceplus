@@ -42,13 +42,14 @@ export class Fornecedor implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.carregarFornecedores();
+    
     this.criarFormulario(); // Função chamada na hora que carrega o componente
 
     this.fornecedorForm.valueChanges.pipe(debounceTime(400), take(2)).subscribe((res) => {
       console.log(res);
     });
 
-    this.carregarFornecedores();
   }
 
   private carregarFornecedores(): void {

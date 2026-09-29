@@ -36,12 +36,12 @@ export class Produto implements OnInit  {
   ) {}
 
   ngOnInit(): void {
+    this.carregarProdutos();
     this.criarFormulario();
     this.produtoForm.valueChanges.pipe(debounceTime(400), take(2)).subscribe((res) => {
       console.log(res);
     });
 
-    this.carregarProdutos();
   }
 
   private carregarProdutos(): void {
