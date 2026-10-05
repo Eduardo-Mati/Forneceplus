@@ -34,9 +34,9 @@ public class CategoriaService {
         Categoria categoriaAntiga = categoriaRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
 
-        if (categoriaNova.getDescricao() != null){
-            categoriaAntiga.setDescricao(categoriaNova.getDescricao());
-        }
+
+        categoriaAntiga.setDescricao(categoriaNova.getDescricao());
+
         if(categoriaNova.getNomeCategoria() != null){
             categoriaAntiga.setNomeCategoria(categoriaNova.getNomeCategoria());
         }
@@ -46,4 +46,11 @@ public class CategoriaService {
 
         return categoriaRepository.save(categoriaAntiga);
     }
+    /*
+    public List<Categoria> findByIdCategoria(String Id) {
+        return categoriaRepository.findByIdCategoria(Id);
+    }
+
+    Aqui é um exemplo de como usar a busca especifica do repository
+     */
 }

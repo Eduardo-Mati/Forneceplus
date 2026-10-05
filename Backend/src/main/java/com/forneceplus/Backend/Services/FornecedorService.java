@@ -34,24 +34,24 @@ public class FornecedorService {
         Fornecedor fornecedorAntigo = fornecedorRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Fornecedor não encontrado"));
 
-        if (fornecedorNovo.getDescricaoFornecedor() != null) {
-            fornecedorAntigo.setDescricaoFornecedor(fornecedorNovo.getDescricaoFornecedor());
-        }
+
+        fornecedorAntigo.setDescricaoFornecedor(fornecedorNovo.getDescricaoFornecedor());
+
         if (fornecedorNovo.getCNPJFornecedor() != null){
             fornecedorAntigo.setCNPJFornecedor(fornecedorNovo.getCNPJFornecedor());
         }
-        if(fornecedorNovo.getEmailFornecedor() != null){
-            fornecedorAntigo.setEmailFornecedor(fornecedorNovo.getEmailFornecedor());
-        }
-        if (fornecedorNovo.getEnderecoFornecedor() != null){
-            fornecedorAntigo.setEnderecoFornecedor(fornecedorNovo.getEnderecoFornecedor());
-        }
+
+        fornecedorAntigo.setEmailFornecedor(fornecedorNovo.getEmailFornecedor());
+
+
+        fornecedorAntigo.setEnderecoFornecedor(fornecedorNovo.getEnderecoFornecedor());
+
         if (fornecedorNovo.getNomeFornecedor() != null) {
             fornecedorAntigo.setNomeFornecedor(fornecedorNovo.getNomeFornecedor());
         }
-        if(fornecedorNovo.getTelefoneFornecedor() != null){
-            fornecedorAntigo.setTelefoneFornecedor(fornecedorNovo.getTelefoneFornecedor());
-        }
+
+        fornecedorAntigo.setTelefoneFornecedor(fornecedorNovo.getTelefoneFornecedor());
+
 
         return fornecedorRepository.save(fornecedorAntigo);
     }

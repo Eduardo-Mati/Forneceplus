@@ -40,13 +40,12 @@ public class VendaService {
         Venda vendaAntiga = vendaRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Venda não encontrada"));
 
-        if (vendaNova.getData() != null) {
-            vendaAntiga.setData(vendaNova.getData());
-        }
 
-        if(vendaNova.getObservacao() != null){
-            vendaAntiga.setObservacao(vendaNova.getObservacao());
-        }
+        vendaAntiga.setData(vendaNova.getData());
+
+
+        vendaAntiga.setObservacao(vendaNova.getObservacao());
+
         if (vendaNova.getItens() != null) {
             vendaAntiga.setItens(vendaNova.getItens());
         }

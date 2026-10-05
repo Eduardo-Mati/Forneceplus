@@ -32,7 +32,7 @@ public class FornecedorController {
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<Fornecedor> BuscarFornecedorPorId(@PathVariable Long id){
+    private ResponseEntity<Fornecedor> BuscarFornecedorPorId(@PathVariable String id){
 
         Optional<Fornecedor> fornecedor = fornecedorService.BuscarFornecedorPorId(id);
 
@@ -44,13 +44,13 @@ public class FornecedorController {
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<Void> DeletarFornecedor(@PathVariable Long id){
+    private ResponseEntity<Void> DeletarFornecedor(@PathVariable String id){
         fornecedorService.DeletarFornecedor(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<Fornecedor> AtualizarFornecedor(@PathVariable Long id,@RequestBody Fornecedor fornecedor){
+    private ResponseEntity<Fornecedor> AtualizarFornecedor(@PathVariable String id,@RequestBody Fornecedor fornecedor){
         Optional<Fornecedor> fornecedorAntigo = fornecedorService.BuscarFornecedorPorId(id);
 
         if(!fornecedorAntigo.isPresent()){

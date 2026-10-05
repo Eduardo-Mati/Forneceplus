@@ -59,9 +59,9 @@ public class ProdutoService {
         if(produtoNovo.getQuantidade() != null){
             ProdutoAntigo.setQuantidade(produtoNovo.getQuantidade());
         }
-        if (produtoNovo.getDescricao() != null){
-            ProdutoAntigo.setDescricao(produtoNovo.getDescricao());
-        }
+
+        ProdutoAntigo.setDescricao(produtoNovo.getDescricao());
+
         if (produtoNovo.getNomeProduto() != null) {
             ProdutoAntigo.setNomeProduto(produtoNovo.getNomeProduto());
         }

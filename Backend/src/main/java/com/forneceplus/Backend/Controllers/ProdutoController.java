@@ -30,7 +30,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<Produto> BuscarProdutoPorId (@PathVariable Long id){
+    private ResponseEntity<Produto> BuscarProdutoPorId (@PathVariable String id){
 
         Optional<Produto> produto = produtoService.BuscarProdutoPorId(id);
 
@@ -42,7 +42,7 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<Produto> AtualizarProduto(@PathVariable Long id, @RequestBody Produto produto){
+    private ResponseEntity<Produto> AtualizarProduto(@PathVariable String id, @RequestBody Produto produto){
         Optional<Produto> produtoAntigo = produtoService.BuscarProdutoPorId(id);
 
         if(!produtoAntigo.isPresent()){
@@ -54,7 +54,7 @@ public class ProdutoController {
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<Void> DeletarProduto(@PathVariable Long id){
+    private ResponseEntity<Void> DeletarProduto(@PathVariable String id){
         produtoService.DeletarProduto(id);
         return ResponseEntity.noContent().build();
     }

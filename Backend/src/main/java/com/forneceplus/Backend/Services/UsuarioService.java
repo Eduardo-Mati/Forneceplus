@@ -53,9 +53,9 @@ public class UsuarioService {
         if (usuarioNovo.getSenha() != null) {
             usuarioAntigo.setSenha(usuarioNovo.getSenha());
         }
-        if(usuarioNovo.getTelefone() != null){
-            usuarioAntigo.setTelefone(usuarioNovo.getTelefone());
-        }
+
+        usuarioAntigo.setTelefone(usuarioNovo.getTelefone());
+
 
         return usuarioRepository.save(usuarioAntigo);
 
