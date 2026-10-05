@@ -1,6 +1,6 @@
 package com.forneceplus.Backend.Entities;
 
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,40 +12,42 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 
-@Entity // Indica que esta classe representa uma tabela no banco de dados.
+//@Entity // Indica que esta classe representa uma tabela no banco de dados.
 @Data // Gera getters, setters, toString, equals e hashCode com o Lombok.
 @NoArgsConstructor // Gera um construtor sem argumentos, exigido pelo JPA.
 @AllArgsConstructor // Gera um construtor com todos os atributos.
 public class ItemVenda {
 
     @Id // Define a chave primária da tabela.
-    @GeneratedValue // Gera automaticamente o ID do item.
-    private Long idItem;
+    //@GeneratedValue // Gera automaticamente o ID do item.
+    private String idItem;
 
-    @ManyToOne // Muitos itens podem pertencer a uma mesma venda.
-    @JoinColumn(name = "idVenda", nullable = false) // Cria a FK para a venda e exige que ela seja informada.
+    //@ManyToOne // Muitos itens podem pertencer a uma mesma venda.
+    //@JoinColumn(name = "idVenda", nullable = false) // Cria a FK para a venda e exige que ela seja informada.
     @NotNull // Exige uma venda associada.
     @JsonIgnoreProperties(value = "itens", allowSetters = true) // Oculta apenas a lista de itens ao responder, mas aceita venda no JSON recebido.
     private Venda venda;
 
-    @ManyToOne // Muitos itens podem referenciar um mesmo produto.
-    @JoinColumn(name = "idProduto", nullable = false) // Cria a FK para o produto.
+    //@ManyToOne // Muitos itens podem referenciar um mesmo produto.
+    //@JoinColumn(name = "idProduto", nullable = false) // Cria a FK para o produto.
     @NotNull // Exige um produto associado.
     private Produto produto;
 
-    @Column(nullable = false) // A coluna não aceita null no banco.
+    //@Column(nullable = false) // A coluna não aceita null no banco.
     @NotNull // Exige que a quantidade seja informada.
     @Positive // Exige quantidade maior que zero.
     private Integer quantidade;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     @NotNull // Exige que o preço seja informado.
     @Positive // Exige preço maior que zero.
     private BigDecimal preco;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     @NotBlank // Exige que o status esteja preenchido.
     private String statusItem;
 

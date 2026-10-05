@@ -1,6 +1,6 @@
 package com.forneceplus.Backend.Entities;
 
-import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,44 +12,47 @@ import java.util.List;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 
-@Entity // Indica que esta classe representa uma tabela no banco de dados.
+//@Entity // Indica que esta classe representa uma tabela no banco de dados.
+@Document(collection = "vendas")
 @Data // Gera getters, setters, toString, equals e hashCode com o Lombok.
 @NoArgsConstructor // Gera um construtor sem argumentos, exigido pelo JPA.
 @AllArgsConstructor // Gera um construtor com todos os atributos.
 public class Venda{
 
     @Id // Define a chave primária da tabela.
-    @GeneratedValue // Gera automaticamente o ID da venda.
-    private Long idVenda;
+    //@GeneratedValue // Gera automaticamente o ID da venda.
+    private String idVenda;
 
-    @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL) // Uma venda possui vários itens; as operações são propagadas aos itens.
+    //@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL) // Uma venda possui vários itens; as operações são propagadas aos itens.
     private List<ItemVenda> itens;
 
-    @Column(nullable = false) // A coluna não aceita null no banco.
+    //@Column(nullable = false) // A coluna não aceita null no banco.
     @NotNull // Exige valor informado.
     @Positive // Exige valor maior que zero.
     private BigDecimal valor;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     @NotBlank
     private String data;
 
-    @ManyToOne // Muitas vendas podem pertencer ao mesmo usuário.
-    @JoinColumn(name = "idUsuario", nullable = false) // Cria a FK do usuário.
+    //@ManyToOne // Muitas vendas podem pertencer ao mesmo usuário.
+    //@JoinColumn(name = "idUsuario", nullable = false) // Cria a FK do usuário.
     @NotNull // Exige um usuário associado.
     private Usuario usuario;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     @NotBlank
     private String status;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     @NotNull
     private String observacao;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     @NotBlank
     private String formaPagamento;
 }
