@@ -43,11 +43,11 @@ export class Cadastro implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.carregarUsuarios();
     this.criarFormulario();
     this.cadastroForm.valueChanges.pipe(debounceTime(400), take(2)).subscribe((res) => {
       console.log(res);
     });
-    this.carregarUsuarios();
   }
 
   private carregarUsuarios(): void {

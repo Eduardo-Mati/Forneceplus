@@ -43,13 +43,13 @@ export class ItemVenda implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.carregarItens();
     this.criarFormulario(); // Função chamada na hora que carrega o componente
 
     this.itemVendaForm.valueChanges.pipe(debounceTime(400), take(2)).subscribe((res) => { //O valuesChanges funciona como observable, logo, nele podemos fazer N coisas durante uma requisição ou alteração de dados do formulário
       console.log(res);
     });
     
-    this.carregarItens();
   }
 
   private carregarItens(): void {

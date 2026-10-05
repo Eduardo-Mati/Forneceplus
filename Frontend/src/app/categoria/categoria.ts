@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,7 +21,7 @@ interface CategoriaModel {
   styleUrl: './categoria.css',
   standalone: true
 })
-export class Categoria implements OnInit {
+export class Categoria implements OnInit{
   categoriaForm!: FormGroup;
   listarCategorias: CategoriaModel[] = [];
   categoriaEmEdicao: CategoriaModel | null = null;
@@ -30,14 +30,15 @@ export class Categoria implements OnInit {
     private formBuilder: FormBuilder,
     private httpClient: HttpClient
   ) {}
+  
 
   ngOnInit(): void {
+    this.carregarCategorias();
     this.criarFormulario();
     this.categoriaForm.valueChanges.pipe(debounceTime(400), take(2)).subscribe((res) => {
       console.log(res);
     });
 
-    this.carregarCategorias();
   }
 
   private carregarCategorias(): void {
