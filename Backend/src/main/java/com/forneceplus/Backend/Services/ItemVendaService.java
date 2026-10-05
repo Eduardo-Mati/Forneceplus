@@ -38,7 +38,7 @@ public class ItemVendaService {
         return itemVendaRepository.save(item);
     }
 
-    public ItemVenda AtualizarItem(Long id, ItemVenda dadosNovos){
+    public ItemVenda AtualizarItem(String id, ItemVenda dadosNovos){
         ItemVenda itemAntigo = itemVendaRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Item de venda não encontrado"));
 
@@ -69,11 +69,11 @@ public class ItemVendaService {
         return itemVendaRepository.save(itemAntigo);
     }
 
-    public Optional<ItemVenda> BuscarItemPorId(Long id){
+    public Optional<ItemVenda> BuscarItemPorId(String id){
         return itemVendaRepository.findById(id);
     }
 
-    public void DeletarItem(Long id){
+    public void DeletarItem(String id){
         if (!itemVendaRepository.existsById(id)) {
             throw new ResourceNotFoundException("Item de venda não encontrado");
         }

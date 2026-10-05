@@ -39,11 +39,11 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 
-    public Optional<Produto> BuscarProdutoPorId(Long id){
+    public Optional<Produto> BuscarProdutoPorId(String id){
         return produtoRepository.findById(id);
     }
 
-    public Produto AtualizarProduto(Long id, Produto produtoNovo){
+    public Produto AtualizarProduto(String id, Produto produtoNovo){
 
         Produto ProdutoAntigo = produtoRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
@@ -75,7 +75,7 @@ public class ProdutoService {
         return produtoRepository.save(ProdutoAntigo);
     }
 
-    public void DeletarProduto(Long id){
+    public void DeletarProduto(String id){
         if (!produtoRepository.existsById(id)) {
             throw new ResourceNotFoundException("Produto não encontrado");
         }

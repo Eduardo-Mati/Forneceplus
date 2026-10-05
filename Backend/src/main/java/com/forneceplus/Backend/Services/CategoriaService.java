@@ -20,16 +20,16 @@ public class CategoriaService {
     public Categoria SalvarCategoria(Categoria categoria){
         return categoriaRepository.save(categoria);
     }
-    public Optional<Categoria> BuscarCategoriaPorId(Long id){
+    public Optional<Categoria> BuscarCategoriaPorId(String id){
         return categoriaRepository.findById(id);
     }
-    public void DeletarCategoria(Long id){
+    public void DeletarCategoria(String id){
         if (!categoriaRepository.existsById(id)) {
             throw new ResourceNotFoundException("Categoria não encontrada");
         }
         categoriaRepository.deleteById(id);
     }
-    public Categoria AtualizarCategoria(Long id, Categoria categoriaNova){
+    public Categoria AtualizarCategoria(String id, Categoria categoriaNova){
 
         Categoria categoriaAntiga = categoriaRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));

@@ -21,16 +21,16 @@ public class FornecedorService {
     public Fornecedor SalvarFornecedor(Fornecedor fornecedor){
         return fornecedorRepository.save(fornecedor);
     }
-    public Optional<Fornecedor> BuscarFornecedorPorId(Long id){
+    public Optional<Fornecedor> BuscarFornecedorPorId(String id){
         return fornecedorRepository.findById(id);
     }
-    public void DeletarFornecedor(Long id){
+    public void DeletarFornecedor(String id){
         if (!fornecedorRepository.existsById(id)) {
             throw new ResourceNotFoundException("Fornecedor não encontrado");
         }
         fornecedorRepository.deleteById(id);
     }
-    public Fornecedor AtualizarFornecedor(Long id, Fornecedor fornecedorNovo){
+    public Fornecedor AtualizarFornecedor(String id, Fornecedor fornecedorNovo){
         Fornecedor fornecedorAntigo = fornecedorRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Fornecedor não encontrado"));
 
