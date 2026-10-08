@@ -30,19 +30,19 @@ public class VendaController {
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<Venda> AtualizarVenda(@PathVariable Long id, @RequestBody Venda venda) {
+    private ResponseEntity<Venda> AtualizarVenda(@PathVariable String id, @RequestBody Venda venda) {
         Venda vendaAtualizada = vendaService.AtualizarVenda(id, venda);
         return ResponseEntity.ok(vendaAtualizada);
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<Void> DeletarVenda(@PathVariable Long id) {
+    private ResponseEntity<Void> DeletarVenda(@PathVariable String id) {
         vendaService.DeletarVenda(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<Venda> BuscarVendaPorId(@PathVariable Long id) {
+    private ResponseEntity<Venda> BuscarVendaPorId(@PathVariable String id) {
         Optional<Venda> venda = vendaService.BuscarVendaPorId(id);
 
         if(venda.isPresent()) {

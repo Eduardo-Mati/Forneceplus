@@ -32,10 +32,7 @@
 				<mat-label>CNPJ</mat-label>
 				<input type="text" formControlName="CNPJFornecedor" matInput maxlength="14" placeholder="Digite 14 números">
 			</mat-form-field>
-			<mat-form-field appearance="outline">
-				<mat-label>Descrição</mat-label>
-				<input type="text" formControlName="descricaoFornecedor" matInput placeholder="Descreva o fornecedor">
-			</mat-form-field>
+			
 
 			<div class="form-actions">
 				<button matButton="filled" type="submit" [disabled]="fornecedorForm.invalid">{{ fornecedorEmEdicao ? 'Atualizar' : 'Cadastrar' }}</button>

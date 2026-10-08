@@ -33,7 +33,7 @@ public class CategoriaController {
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<Categoria> BuscarCategoriaPorId(@PathVariable Long id){
+    private ResponseEntity<Categoria> BuscarCategoriaPorId(@PathVariable String id){
 
         Optional<Categoria> categoria = categoriaService.BuscarCategoriaPorId(id);
 
@@ -45,13 +45,13 @@ public class CategoriaController {
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<Void> DeletarCategoria(@PathVariable Long id){
+    private ResponseEntity<Void> DeletarCategoria(@PathVariable String id){
         categoriaService.DeletarCategoria(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<Categoria> AtualizarCategoria(@PathVariable Long id, @RequestBody Categoria categoria){
+    private ResponseEntity<Categoria> AtualizarCategoria(@PathVariable String id, @RequestBody Categoria categoria){
         Optional<Categoria> categoriaAntiga = categoriaService.BuscarCategoriaPorId(id);
 
         if(!categoriaAntiga.isPresent()){

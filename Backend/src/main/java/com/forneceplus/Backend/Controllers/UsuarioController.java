@@ -2,7 +2,6 @@ package com.forneceplus.Backend.Controllers;
 
 import com.forneceplus.Backend.Entities.Usuario;
 import com.forneceplus.Backend.Services.UsuarioService;
-import com.forneceplus.Backend.Utils.VerificarCPF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +31,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<Usuario> BuscarUsuarioPorId(@PathVariable Long id){
+    private ResponseEntity<Usuario> BuscarUsuarioPorId(@PathVariable String id){
         Optional<Usuario> usuario = usuarioService.BuscarUsuarioPorId(id);
 
         if(usuario.isPresent()){
@@ -43,13 +42,13 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<Void> DeletarUsuario(@PathVariable Long id){
+    private ResponseEntity<Void> DeletarUsuario(@PathVariable String id){
         usuarioService.DeletarUsuario(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<Usuario> AtualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario){
+    private ResponseEntity<Usuario> AtualizarUsuario(@PathVariable String id, @RequestBody Usuario usuario){
         Optional<Usuario> usuarioAntigo = usuarioService.BuscarUsuarioPorId(id);
 
         if(!usuarioAntigo.isPresent()){

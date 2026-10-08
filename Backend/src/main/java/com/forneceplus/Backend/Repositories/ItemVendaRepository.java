@@ -1,7 +1,7 @@
 package com.forneceplus.Backend.Repositories;
 
 import com.forneceplus.Backend.Entities.ItemVenda;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface ItemVendaRepository extends JpaRepository<ItemVenda, Long> {
+public interface ItemVendaRepository extends MongoRepository<ItemVenda, String> {
 }

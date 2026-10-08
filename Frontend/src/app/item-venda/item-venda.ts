@@ -8,9 +8,9 @@ import { debounceTime, take } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 interface ItemVendaModel {
-  idItemVenda: number;
-  idVenda: number;
-  idProduto: number;
+  idItem: string;
+  venda: { idVenda: string };
+  produto: { idProduto: string };
   quantidade: number;
   preco: number;
   statusItem: string;
@@ -82,7 +82,7 @@ export class ItemVenda implements OnInit {
         statusItem: formulario.statusItem
       };
       const requisicao = this.itemEmEdicao
-        ? this.httpClient.put(`http://localhost:8081/itens/${this.itemEmEdicao.idItemVenda}`, dados)
+        ? this.httpClient.put(`http://localhost:8081/itens/${this.itemEmEdicao.idItem}`, dados)
         : this.httpClient.post('http://localhost:8081/itens', dados);
 
       requisicao.subscribe(() => {
@@ -94,14 +94,20 @@ export class ItemVenda implements OnInit {
 
   editarItem(item: ItemVendaModel): void {
     this.itemEmEdicao = item;
-    this.itemVendaForm.patchValue(item);
+    this.itemVendaForm.patchValue({
+      idVenda: item.venda.idVenda,
+      idProduto: item.produto.idProduto,
+      quantidade: item.quantidade,
+      preco: item.preco,
+      statusItem: item.statusItem
+    });
   }
 
   excluirItem(item: ItemVendaModel): void {
-    if (confirm(`Excluir o item ${item.idItemVenda}?`)) {
-      this.httpClient.delete(`http://localhost:8081/itens/${item.idItemVenda}`).subscribe(() => {
+    if (confirm(`Excluir o item ${item.idItem}?`)) {
+      this.httpClient.delete(`http://localhost:8081/itens/${item.idItem}`).subscribe(() => {
         this.carregarItens();
-        if (this.itemEmEdicao?.idItemVenda === item.idItemVenda) {
+        if (this.itemEmEdicao?.idItem === item.idItem) {
           this.cancelarEdicao();
         }
       });

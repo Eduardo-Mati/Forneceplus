@@ -67,12 +67,12 @@ class ServiceValidationTests {
     void atualizacaoParcialMantemCamposNaoInformados() {
         Produto produto = new Produto();
         Venda venda = new Venda();
-        ItemVenda item = new ItemVenda(1L, venda, produto, 2, new BigDecimal("10"), "ABERTO");
+        ItemVenda item = new ItemVenda("1L", venda, produto, 2, new BigDecimal("10"), "ABERTO");
         ItemVenda dadosNovos = new ItemVenda(null, null, null, null, new BigDecimal("12"), null);
-        when(itemVendaRepository.findById(1L)).thenReturn(Optional.of(item));
+        when(itemVendaRepository.findById("1L")).thenReturn(Optional.of(item));
         when(itemVendaRepository.save(any(ItemVenda.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        ItemVenda atualizado = itemVendaService.AtualizarItem(1L, dadosNovos);
+        ItemVenda atualizado = itemVendaService.AtualizarItem("1L", dadosNovos);
 
         assertEquals(produto, atualizado.getProduto());
         assertEquals(2, atualizado.getQuantidade());
@@ -84,18 +84,18 @@ class ServiceValidationTests {
 
     @Test
     void atualizacoesComIdInexistenteLancamExcecao404() {
-        when(categoriaRepository.findById(1L)).thenReturn(Optional.empty());
-        when(fornecedorRepository.findById(1L)).thenReturn(Optional.empty());
-        when(produtoRepository.findById(1L)).thenReturn(Optional.empty());
-        when(usuarioRepository.findById(1L)).thenReturn(Optional.empty());
-        when(itemVendaRepository.findById(1L)).thenReturn(Optional.empty());
-        when(vendaRepository.findById(1L)).thenReturn(Optional.empty());
+        when(categoriaRepository.findById("1L")).thenReturn(Optional.empty());
+        when(fornecedorRepository.findById("1L")).thenReturn(Optional.empty());
+        when(produtoRepository.findById("1L")).thenReturn(Optional.empty());
+        when(usuarioRepository.findById("1L")).thenReturn(Optional.empty());
+        when(itemVendaRepository.findById("1L")).thenReturn(Optional.empty());
+        when(vendaRepository.findById("1L")).thenReturn(Optional.empty());
 
-        assertThrows(ResourceNotFoundException.class, () -> categoriaService.AtualizarCategoria(1L, new Categoria()));
-        assertThrows(ResourceNotFoundException.class, () -> fornecedorService.AtualizarFornecedor(1L, new Fornecedor()));
-        assertThrows(ResourceNotFoundException.class, () -> produtoService.AtualizarProduto(1L, new Produto()));
-        assertThrows(ResourceNotFoundException.class, () -> usuarioService.AtualizarUsuario(1L, new Usuario()));
-        assertThrows(ResourceNotFoundException.class, () -> itemVendaService.AtualizarItem(1L, new ItemVenda()));
-        assertThrows(ResourceNotFoundException.class, () -> vendaService.AtualizarVenda(1L, new Venda()));
+        assertThrows(ResourceNotFoundException.class, () -> categoriaService.AtualizarCategoria("1L", new Categoria()));
+        assertThrows(ResourceNotFoundException.class, () -> fornecedorService.AtualizarFornecedor("1L", new Fornecedor()));
+        assertThrows(ResourceNotFoundException.class, () -> produtoService.AtualizarProduto("1L", new Produto()));
+        assertThrows(ResourceNotFoundException.class, () -> usuarioService.AtualizarUsuario("1L", new Usuario()));
+        assertThrows(ResourceNotFoundException.class, () -> itemVendaService.AtualizarItem("1L", new ItemVenda()));
+        assertThrows(ResourceNotFoundException.class, () -> vendaService.AtualizarVenda("1L", new Venda()));
     }
 }

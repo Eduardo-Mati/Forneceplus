@@ -22,18 +22,18 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Optional<Usuario> BuscarUsuarioPorId (Long Id){
+    public Optional<Usuario> BuscarUsuarioPorId (String Id){
         return usuarioRepository.findById(Id);
     }
 
-    public void DeletarUsuario(Long Id){
+    public void DeletarUsuario(String Id){
         if (!usuarioRepository.existsById(Id)) {
             throw new ResourceNotFoundException("Usuário não encontrado");
         }
         usuarioRepository.deleteById(Id);
     }
 
-    public Usuario AtualizarUsuario(Long id, Usuario usuarioNovo){
+    public Usuario AtualizarUsuario(String id, Usuario usuarioNovo){
 
         Usuario usuarioAntigo = usuarioRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
@@ -53,9 +53,9 @@ public class UsuarioService {
         if (usuarioNovo.getSenha() != null) {
             usuarioAntigo.setSenha(usuarioNovo.getSenha());
         }
-        if(usuarioNovo.getTelefone() != null){
-            usuarioAntigo.setTelefone(usuarioNovo.getTelefone());
-        }
+
+        usuarioAntigo.setTelefone(usuarioNovo.getTelefone());
+
 
         return usuarioRepository.save(usuarioAntigo);
 

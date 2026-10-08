@@ -15,6 +15,8 @@ interface ProdutoModel {
   preco: number;
   idCategoria: number;
   idFornecedor: number;
+  categoria?: { idCategoria: number };
+  fornecedor?: { idFornecedor: number };
 }
 
 @Component({
@@ -46,7 +48,11 @@ export class Produto implements OnInit  {
 
   private carregarProdutos(): void {
     this.httpClient.get<ProdutoModel[]>('http://localhost:8081/produtos').subscribe({
-      next: (res) => this.listarProdutos = res,
+    next: (res) => this.listarProdutos = res.map((produto) => ({
+    ...produto,
+    idCategoria: produto.idCategoria ?? produto.categoria?.idCategoria,
+    idFornecedor: produto.idFornecedor ?? produto.fornecedor?.idFornecedor
+    })),
       error: () => this.listarProdutos = []
     });
   }

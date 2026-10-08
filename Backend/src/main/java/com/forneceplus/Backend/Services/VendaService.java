@@ -30,23 +30,22 @@ public class VendaService {
         return vendaRepository.save(venda);
     }
 
-    public void DeletarVenda(Long id){
+    public void DeletarVenda(String id){
         if (!vendaRepository.existsById(id)) {
             throw new ResourceNotFoundException("Venda não encontrada");
         }
         vendaRepository.deleteById(id);
     }
-    public Venda AtualizarVenda(Long id, Venda vendaNova){
+    public Venda AtualizarVenda(String id, Venda vendaNova){
         Venda vendaAntiga = vendaRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Venda não encontrada"));
 
-        if (vendaNova.getData() != null) {
-            vendaAntiga.setData(vendaNova.getData());
-        }
 
-        if(vendaNova.getObservacao() != null){
-            vendaAntiga.setObservacao(vendaNova.getObservacao());
-        }
+        vendaAntiga.setData(vendaNova.getData());
+
+
+        vendaAntiga.setObservacao(vendaNova.getObservacao());
+
         if (vendaNova.getItens() != null) {
             vendaAntiga.setItens(vendaNova.getItens());
         }
@@ -70,7 +69,7 @@ public class VendaService {
 
         return vendaRepository.save(vendaAntiga);
     }
-    public Optional<Venda> BuscarVendaPorId(Long id){
+    public Optional<Venda> BuscarVendaPorId(String id){
         return vendaRepository.findById(id);
     }
 }

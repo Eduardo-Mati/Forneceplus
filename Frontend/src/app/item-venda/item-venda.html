@@ -51,7 +51,7 @@
 					<th>Status</th>
 					<th>Ações</th></tr></thead>
 				<tbody>
-					<tr *ngFor="let item of listarItens"><td>{{ item.idItemVenda }}</td><td>{{ item.idVenda }}</td><td>{{ item.idProduto }}</td><td>{{ item.quantidade }}</td><td>{{ item.preco }}</td><td>{{ item.statusItem }}</td>
+					<tr *ngFor="let item of listarItens"><td>{{ item.idItem }}</td><td>{{ item.venda.idVenda }}</td><td>{{ item.produto.idProduto }}</td><td>{{ item.quantidade }}</td><td>{{ item.preco }}</td><td>{{ item.statusItem }}</td>
 						<td class="row-actions"><button matButton="outlined" (click)="editarItem(item)">Editar</button><button matButton="outlined" color="warn" (click)="excluirItem(item)">Excluir</button></td></tr>
 				</tbody>
 			</table>
