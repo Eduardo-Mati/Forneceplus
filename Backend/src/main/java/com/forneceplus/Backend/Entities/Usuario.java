@@ -1,6 +1,7 @@
 package com.forneceplus.Backend.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -38,6 +39,7 @@ public class Usuario {
     //@Column(nullable = false)
     @NotBlank
     @Pattern(regexp = "\\d{11}") // Exige exatamente 11 dígitos para o CPF.
+    @JsonProperty("CPF") // Sem isso o Jackson usa "cpf" (minúsculo) e ignora o "CPF" enviado pelo frontend.
     private String CPF;
 
     //@Column(nullable = false)

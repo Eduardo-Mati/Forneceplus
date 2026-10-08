@@ -2,7 +2,6 @@ package com.forneceplus.Backend.Controllers;
 
 import com.forneceplus.Backend.Entities.Usuario;
 import com.forneceplus.Backend.Services.UsuarioService;
-import com.forneceplus.Backend.Utils.VerificarCPF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

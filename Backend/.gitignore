@@ -5,6 +5,7 @@ bin/
 *.class
 
 # IDEs and editors
+.env
 .idea/
 *.iws
 *.iml

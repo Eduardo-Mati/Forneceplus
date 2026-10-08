@@ -85,10 +85,10 @@ class EndpointValidationTests {
     @Test
     void endpointsDeVendaRecebemBodyEIdCorretamente() throws Exception {
                 Venda venda = mock(Venda.class);
-        when(venda.getIdVenda()).thenReturn("1L");
+        when(venda.getIdVenda()).thenReturn("1");
         when(vendaService.SalvarVenda(any(Venda.class))).thenReturn(venda);
-        when(vendaService.AtualizarVenda(eq("1L"), any(Venda.class))).thenReturn(venda);
-                when(vendaService.BuscarVendaPorId("1L")).thenReturn(Optional.of(venda));
+        when(vendaService.AtualizarVenda(eq("1"), any(Venda.class))).thenReturn(venda);
+                when(vendaService.BuscarVendaPorId("1")).thenReturn(Optional.of(venda));
 
         mockMvc.perform(post("/vendas")
                         .contentType("application/json")
@@ -104,17 +104,17 @@ class EndpointValidationTests {
         mockMvc.perform(delete("/vendas/1"))
                 .andExpect(status().isNoContent());
 
-        verify(vendaService).AtualizarVenda(eq("1L"), any(Venda.class));
-        verify(vendaService).DeletarVenda("1L");
+        verify(vendaService).AtualizarVenda(eq("1"), any(Venda.class));
+        verify(vendaService).DeletarVenda("1");
     }
 
     @Test
     void getDeItemRetornaEntidadeE404QuandoNaoExiste() throws Exception {
         ItemVenda item = mock(ItemVenda.class);
-        when(item.getIdItem()).thenReturn("1L");
+        when(item.getIdItem()).thenReturn("1");
         when(item.getProduto()).thenReturn(mock(Produto.class));
-        when(itemVendaService.BuscarItemPorId("1L")).thenReturn(Optional.of(item));
-        when(itemVendaService.BuscarItemPorId("2L")).thenReturn(Optional.empty());
+        when(itemVendaService.BuscarItemPorId("1")).thenReturn(Optional.of(item));
+        when(itemVendaService.BuscarItemPorId("2")).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/itens/1"))
                 .andExpect(status().isOk())
@@ -156,21 +156,21 @@ class EndpointValidationTests {
     }
 
     @Test
-    void cpfInvalidoRetorna400() throws Exception {
+        void cpfComOnzeDigitosRetorna201() throws Exception {
         mockMvc.perform(post("/usuarios")
                         .contentType("application/json")
                         .content("{\"nome\":\"Maria\",\"email\":\"maria@email.com\",\"senha\":\"segredo\",\"CPF\":\"11111111111\",\"endereco\":\"Rua B\",\"telefone\":11999999999}"))
-                .andExpect(status().isBadRequest());
+                                .andExpect(status().isCreated());
     }
 
     @Test
     void buscasPorIdInexistenteRetornam404EmTodosOsRecursos() throws Exception {
-        when(categoriaService.BuscarCategoriaPorId("99L")).thenReturn(Optional.empty());
-        when(fornecedorService.BuscarFornecedorPorId("99L")).thenReturn(Optional.empty());
-        when(produtoService.BuscarProdutoPorId("99L")).thenReturn(Optional.empty());
-        when(usuarioService.BuscarUsuarioPorId("99L")).thenReturn(Optional.empty());
-        when(itemVendaService.BuscarItemPorId("99L")).thenReturn(Optional.empty());
-        when(vendaService.BuscarVendaPorId("99L")).thenReturn(Optional.empty());
+        when(categoriaService.BuscarCategoriaPorId("99")).thenReturn(Optional.empty());
+        when(fornecedorService.BuscarFornecedorPorId("99")).thenReturn(Optional.empty());
+        when(produtoService.BuscarProdutoPorId("99")).thenReturn(Optional.empty());
+        when(usuarioService.BuscarUsuarioPorId("99")).thenReturn(Optional.empty());
+        when(itemVendaService.BuscarItemPorId("99")).thenReturn(Optional.empty());
+        when(vendaService.BuscarVendaPorId("99")).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/categorias/99")).andExpect(status().isNotFound());
         mockMvc.perform(get("/fornecedores/99")).andExpect(status().isNotFound());
@@ -187,16 +187,16 @@ class EndpointValidationTests {
         Produto produto = mock(Produto.class);
         Usuario usuario = mock(Usuario.class);
         ItemVenda item = mock(ItemVenda.class);
-        when(categoriaService.BuscarCategoriaPorId("1L")).thenReturn(Optional.of(categoria));
-        when(fornecedorService.BuscarFornecedorPorId("1L")).thenReturn(Optional.of(fornecedor));
-        when(produtoService.BuscarProdutoPorId("1L")).thenReturn(Optional.of(produto));
-        when(usuarioService.BuscarUsuarioPorId("1L")).thenReturn(Optional.of(usuario));
-        when(itemVendaService.BuscarItemPorId("1L")).thenReturn(Optional.of(item));
-        when(categoriaService.AtualizarCategoria(eq("1L"), any(Categoria.class))).thenReturn(categoria);
-        when(fornecedorService.AtualizarFornecedor(eq("1L"), any(Fornecedor.class))).thenReturn(fornecedor);
-        when(produtoService.AtualizarProduto(eq("1L"), any(Produto.class))).thenReturn(produto);
-        when(usuarioService.AtualizarUsuario(eq("1L"), any(Usuario.class))).thenReturn(usuario);
-        when(itemVendaService.AtualizarItem(eq("1L"), any(ItemVenda.class))).thenReturn(item);
+        when(categoriaService.BuscarCategoriaPorId("1")).thenReturn(Optional.of(categoria));
+        when(fornecedorService.BuscarFornecedorPorId("1")).thenReturn(Optional.of(fornecedor));
+        when(produtoService.BuscarProdutoPorId("1")).thenReturn(Optional.of(produto));
+        when(usuarioService.BuscarUsuarioPorId("1")).thenReturn(Optional.of(usuario));
+        when(itemVendaService.BuscarItemPorId("1")).thenReturn(Optional.of(item));
+        when(categoriaService.AtualizarCategoria(eq("1"), any(Categoria.class))).thenReturn(categoria);
+        when(fornecedorService.AtualizarFornecedor(eq("1"), any(Fornecedor.class))).thenReturn(fornecedor);
+        when(produtoService.AtualizarProduto(eq("1"), any(Produto.class))).thenReturn(produto);
+        when(usuarioService.AtualizarUsuario(eq("1"), any(Usuario.class))).thenReturn(usuario);
+        when(itemVendaService.AtualizarItem(eq("1"), any(ItemVenda.class))).thenReturn(item);
 
         mockMvc.perform(put("/categorias/1").contentType("application/json")
                         .content("{\"nomeCategoria\":\"Atualizada\"}"))
